@@ -74,7 +74,6 @@ ITSSRCS	= \
 	its/hankata.el \
 	its/hira.el \
 	its/jeonkak.el \
-        its/greek.el \
 	its/pinyin.el \
 	its/hangul.el \
 	its/kata.el \
@@ -122,24 +121,20 @@ install-site: all
 	  mkdir -p ${DESTDIR}${lispdir}/egg; \
 	fi; \
 #
-	for FILE in ${TOPELCS} ${INITELS}; \
-	  do  \
-	    ${INSTALL_DATA}  $${FILE} ${DESTDIR}${lispdir}/egg/; \
-	  done; \
+	${INSTALL_DATA} ${TOPSRCS} ${TOPELCS} ${INITELS} \
+	    ${DESTDIR}${lispdir}/egg/; \
 #
 	mkdir -p ${DESTDIR}${lispdir}/egg/egg ; \
-	for FILE in ${EGGELCS} ; \
-	  do  \
-	    ${INSTALL_DATA}  $${FILE} ${DESTDIR}${lispdir}/egg/egg; \
-	  done; \
+	${INSTALL_DATA} ${EGGSRCS} ${EGGELCS} \
+	    ${DESTDIR}${lispdir}/egg/egg; \
 	touch ${DESTDIR}${lispdir}/egg/egg/.nosearch; \
 #
 	mkdir -p ${DESTDIR}${lispdir}/egg/its ; \
-	for FILE in ${ITSELCS} ; \
-	  do  \
-	    ${INSTALL_DATA}  $${FILE} ${DESTDIR}${lispdir}/egg/its ; \
-	  done; \
+	${INSTALL_DATA} ${ITSSRCS} ${ITSELCS} \
+	    ${DESTDIR}${lispdir}/egg/its ; \
 	touch ${DESTDIR}${lispdir}/egg/its/.nosearch; \
+	(cd ${DESTDIR}${lispdir}/egg && \
+	gzip -9 ${TOPSRCS} ${EGGSRCS} ${ITSSRCS})
 
 
 uninstall-site:

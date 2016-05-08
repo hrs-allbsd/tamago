@@ -1164,7 +1164,6 @@ Return last state."
 	  no-prop-source (buffer-substring-no-properties start end)
 	  len (length source))
     (remove-text-properties 0 len '(intangible nil) source)
-    (egg-separate-languages source (get-text-property (1- start) 'egg-lang))
     (setq i 0)
     (while (< i len)
       (setq lang (get-text-property i 'egg-lang source))
@@ -1176,7 +1175,7 @@ Return last state."
 						    source (length source))
 		       l)))
 	     (setq j (+ i l))
-	(setq j (+ i (egg-char-bytes (egg-string-to-char-at source i)))))
+	(setq j (1+ i)))
       (setq syl (substring no-prop-source i j))
       (put-text-property i j 'its-syl (cons syl syl) source)
       (setq i j))
@@ -1184,7 +1183,7 @@ Return last state."
 	(progn
 	  (setq i 0)
 	  (while (< i len)
-	    (setq j (egg-next-single-property-change i 'egg-lang source len)
+	    (setq j (next-single-property-change i 'egg-lang source)
 		  face (its-get-fence-face
 			(get-text-property i 'egg-lang source)))
 	    (if face
@@ -1228,7 +1227,7 @@ Return last state."
        (its-exit-mode-internal)))
 
 ;; TODO: handle overwrite-mode, insertion-hook, fill...
-(defun its-exit-mode-internal (&optional proceed-to-conversion n)
+(defun its-exit-mode-internal (&optional proceed-to-conversion)
   (let (start end s context str)
     (its-select-previous-mode t)
     ;; Delete CURSOR
@@ -1243,7 +1242,7 @@ Return last state."
     (delete-region end
 		   (next-single-property-change end 'its-end nil (point-max)))
     (if proceed-to-conversion
-	(egg-convert-region start end context n)
+	(egg-convert-region start end context)
       ;; Remove all properties
       (goto-char start)
       (setq str (buffer-substring start end))
@@ -1253,20 +1252,20 @@ Return last state."
       (egg-do-auto-fill)
       (run-hooks 'input-method-after-insert-chunk-hook))))
 
-(defun its-kick-convert-region (&optional n)
+(defun its-kick-convert-region ()
   (interactive "P")
   (let ((inhibit-read-only t))
     (its-input-end)
     (its-put-cursor t)
-    (its-exit-mode-internal t n)))
+    (its-exit-mode-internal t)))
 
-(defun its-kick-convert-region-or-self-insert (&optional n)
+(defun its-kick-convert-region-or-self-insert ()
   (interactive "P")
   (let ((syl (and (null (get-text-property (point) 'its-cursor))
 		  (get-text-property (1- (point)) 'its-syl))))
     (if (its-keyseq-acceptable-p (vector last-command-char) syl)
 	(its-self-insert-char)
-      (its-kick-convert-region n))))
+      (its-kick-convert-region))))
 
 (defun its-in-fence-p ()
   (and (eq (get-text-property (point) 'intangible) 'its-part-2)

@@ -509,7 +509,7 @@ by ':' and digit N."
 			      converted freq right-now)
   (vector dic-no entry jirilen hinshi fuzokugo
 	  converted freq right-now
-	  (egg-chars-in-period converted 0 (length converted))))
+	  (length converted)))
 
 (defsubst wnn-context-dic-no (context)          (aref context 0))
 (defsubst wnn-context-entry (context)           (aref context 1))

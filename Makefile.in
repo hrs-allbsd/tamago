@@ -42,26 +42,23 @@ BATCHFLAGS	= -batch -q -no-site-file -no-init-file
 ETCS	= Makefile docomp.el \
 	AUTHORS ChangeLog README TODO PROBLEMS
 
-INITELS	= eggrc leim-list.el
+INITELS	= leim-list.el
 
 SRCS	= ${TOPSRCS} ${EGGSRCS} ${ITSSRCS}
 
 TOPSRCS	= \
 	egg.el \
-	egg-edep.el \
 	egg-com.el \
 	egg-cnv.el \
 	egg-mlh.el \
 	egg-sim.el \
 	menudiag.el \
 	its.el \
-	its-keydef.el \
+	its-keydef.el
 
 #
 EGGSRCS	= \
-	egg/cannarpc.el egg/canna.el \
 	egg/sj3rpc.el egg/sj3.el \
-	egg/wnnrpc.el egg/wnn.el \
 	egg/anthyipc.el egg/anthy.el
 
 ITSSRCS	= \

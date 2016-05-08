@@ -30,7 +30,7 @@
 
 ;;; Code:
 
-(defconst egg-version "4.1.0"
+(defconst egg-version "4.1.1"
   "Version number for this version of Tamago.")
 
 (eval-when-compile
@@ -159,8 +159,6 @@
 	  (funcall (nth 1 arg))
 	  (setq egg-default-language its-current-language)))
     (egg-set-conversion-backend (nthcdr 2 arg))
-    (egg-set-conversion-backend
-     (list (assq its-current-language (nthcdr 2 arg))) t)
     (setq egg-last-method-name (car arg)
 	  egg-activated t)
     (egg-activate-keymap)
@@ -207,95 +205,9 @@
     (unless (eq buffer-invisibility-spec t)
       (setq buffer-invisibility-spec (list 'egg buffer-invisibility-spec)))))
 
-(defvar egg-mark-list nil)
-(defvar egg-suppress-marking nil)
-
 (defun egg-set-face (beg end face &optional object)
-  (let ((hook (get-text-property beg 'modification-hooks object)))
-    (put face 'face face)
-    (add-text-properties beg end
-			 (list 'category face
-			       'egg-face t
-			       'modification-hooks (cons 'egg-mark-modification
-							 hook))
-			 object)))
-
-(defun egg-mark-modification (beg end)
-  (if (and (null egg-suppress-marking)
-	   (or (get-text-property beg 'egg-face)
-	       (setq beg (next-single-property-change beg 'egg-face)))
-	   (or (get-text-property (1- end) 'egg-face)
-	       (setq end (previous-single-property-change end 'egg-face)))
-	   (< beg end))
-      (let ((list egg-mark-list)
-	    (found 0)
-	    pair mb me b e)
-	(add-hook 'post-command-hook 'egg-redraw-face t)
-	(setq list egg-mark-list)
-	(while (and list (< found 2))
-	  (setq pair (car list)
-		list (cdr list)
-		mb (car pair)
-		me (cdr pair)
-		b (marker-position mb)
-		e (marker-position me))
-	  (cond
-	   ;; no overwrapping -- SKIP
-	   ((or (null (eq (marker-buffer mb) (current-buffer)))
-		(or (> beg e) (< end b))))
-	   ;; completely included
-	   ((and (>= beg b) (<= end e))
-	    (setq found 3))
-	   ;; partially overwrapping
-	   (t
-	    (set-marker mb nil)
-	    (set-marker me nil)
-	    (setq egg-mark-list (delete pair egg-mark-list)
-		  beg (min beg b)
-		  end (max end e)
-		  found (1+ found)))))
-	(if (< found 3)
-	    (progn
-	      (setq b (make-marker)
-		    e (make-marker)
-		    egg-mark-list (cons (cons b e) egg-mark-list))
-	      (set-marker b beg)
-	      (set-marker e end))))))
-
-(defun egg-redraw-face ()
-  (let ((inhibit-read-only t)
-	(inhibit-point-motion-hooks t)
-	(egg-suppress-marking t)
-	(list egg-mark-list)
-	(org-buffer (current-buffer))
-	(org-point (point))
-	mb me b e p)
-    (setq egg-mark-list nil)
-    (remove-hook 'post-command-hook 'egg-redraw-face)
-    (while list
-      (setq mb (car (car list))
-	    me (cdr (car list))
-	    list (cdr list))
-      (when (marker-buffer mb)
-	(set-buffer (marker-buffer mb))
-	(let ((before-change-functions nil) (after-change-functions nil))
-	  (save-excursion
-	    (save-restriction
-	      (widen)
-	      (setq b (max mb (point-min))
-		    e (min me (point-max)))
-	      (set-marker mb nil)
-	      (set-marker me nil)
-	      (while (< b e)
-		(if (null (get-text-property b 'egg-face))
-		    (setq b (next-single-property-change b 'egg-face nil e)))
-		(setq p (next-single-property-change b 'egg-face nil e))
-		(when (< b p)
-		  (goto-char b)
-		  (remove-text-properties 0 (- p b) '(face))
-		  (setq b p))))))))
-    (set-buffer org-buffer)
-    (goto-char org-point)))
+  (put face 'face face)
+  (add-text-properties beg end (list 'category face) object))
 
 (defvar egg-messages nil)
 (defvar egg-message-language-alist nil)

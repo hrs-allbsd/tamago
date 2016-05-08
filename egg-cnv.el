@@ -187,25 +187,9 @@ mode, if non-NIL."
        (force
 	(setcdr pair backend-set))))))
 
-(defun egg-get-conversion-backend (language n use-default)
-  (let (backend)
-    (cond ((null n) (setq n 0))
-	  ((null (integerp n)) (setq n 1)))
-    (setq backend (nth (1+ n) (assq language egg-conversion-backend-alist)))
-    (if backend
-	(and backend (cons 0 (mapcar 'copy-sequence backend)))
-      (and use-default (cons 0 egg-default-conversion-backend)))))
-
-(defsubst egg-default-conversion-backend-p (backend)
-  (eq (cdr backend) egg-default-conversion-backend))
-
-(defsubst egg-get-current-backend (backend)
-  (car (nth (car backend) (cdr backend))))
-
-(defsubst egg-get-reconvert-backend (backend &optional n)
-  (cond ((null n) (setq n 0))
-	((null (integerp n)) (setq n 1)))
-  (nth (1+ n) (nth (car backend) (cdr backend))))
+(defun egg-get-conversion-backend ()
+  (caar (or (cadar egg-conversion-backend-alist)
+	    egg-default-conversion-backend)))
 
 (defmacro egg-bunsetsu-info () ''intangible)
 
@@ -214,9 +198,6 @@ mode, if non-NIL."
 
 (defsubst egg-get-backend (p &optional object)
   (get-text-property p 'egg-backend object))
-
-(defsubst egg-get-language (p &optional object)
-  (get-text-property p 'egg-lang object))
 
 (defsubst egg-get-bunsetsu-last (p &optional object)
   (get-text-property p 'egg-bunsetsu-last object))
@@ -298,10 +279,9 @@ mode, if non-NIL."
 	    egg-end-conversion            egg-end-conversion-noconv))
 
 (defun egg-start-conversion-noconv (backend yomi-string context)
-  (let ((string (copy-sequence yomi-string))
-	(language (egg-get-language 0 yomi-string)))
+  (let ((string (copy-sequence yomi-string)))
     (egg-remove-all-text-properties 0 (length string) string)
-    (list (egg-bunsetsu-create backend (vector string language)))))
+    (list (egg-bunsetsu-create backend (vector string nil)))))
 
 (defun egg-get-bunsetsu-source-noconv (bunsetsu)
   (aref (egg-bunsetsu-get-info bunsetsu) 0))
@@ -316,11 +296,11 @@ mode, if non-NIL."
 
 (defconst egg-default-conversion-backend '((egg-conversion-backend-noconv)))
 
-(defun egg-convert-region (start end &optional context nth-backend)
+(defun egg-convert-region (start end &optional context)
   (interactive "r\ni\nP")
   (let ((source (buffer-substring start end))
-	backend backend-source-list converted converted-list
-	lang len s success abort)
+	(backend (egg-get-conversion-backend))
+	converted len s success)
     (if (>= start end)
 	;; nothing to do
 	nil
@@ -351,218 +331,22 @@ mode, if non-NIL."
 	(goto-char start)
 	(insert source)
 	(goto-char start)
-	(setq source (copy-sequence source))
-	(egg-separate-languages source)
-	(setq backend-source-list (egg-assign-backend source nth-backend))
-	(while (and (null abort) backend-source-list)
-	  (setq backend (car (car backend-source-list))
-		lang (nth 1 (car backend-source-list))
-		source (nth 2 (car backend-source-list))
-		backend-source-list (cdr backend-source-list))
-	  (condition-case error
-	      (progn
-		(setq converted (egg-start-conversion
-				 (egg-get-current-backend backend)
-				 source context))
-		(if (null converted)
-		    (egg-error "no conversion result"))
-		(setq converted-list (nconc converted-list
-					    (list (cons backend converted)))
-		      context 'continued)
-		(or (egg-default-conversion-backend-p backend)
-		    (setq success t)))
-	    ((egg-error quit)
-	     (cond
-	      ((null (or success
-			 (delq t (mapcar (lambda (s)
-					   (egg-default-conversion-backend-p
-					    (cdr (car s))))
-					 backend-source-list))))
-	       (message "egg %s backend: %s"
-			(if (cdr lang) lang (car lang))
-			(nth (if (eq (car error) 'quit) 0 1) error))
-	       (ding)
-	       (setq abort t))
-	      ((condition-case err
-		   (y-or-n-p
-		    (format "egg %s backend %s: continue? "
-			    lang (nth (if (eq (car error) 'quit) 0 1) error)))
-		 ((error quit) nil))
-	       (setq backend (egg-get-conversion-backend nil 0 t)
-		     converted (egg-start-conversion
-				(egg-get-current-backend backend)
-				source context)
-		     converted-list (nconc converted-list
-					   (list (cons backend converted)))
-                     context 'continued))
-	      (t
-	       (setq abort t))))))
-	(delete-region start end)
-	(while converted-list
-	  (egg-insert-bunsetsu-list (caar converted-list) (cdar converted-list)
-				    (or (null (cdr converted-list)) 'continue))
-	  (setq converted-list (cdr converted-list)))
-	(goto-char start)
-	(cond (abort
-	       (egg-abort-conversion))
-	      ((null success)
-	       (egg-exit-conversion)))))))
-
-(defun egg-separate-languages (str &optional last-lang)
-  (let (lang last-chinese
-	(len (length str)) i j l)
-    ;; 1st pass -- mark undefined Chinese part
-    (if (or (eq last-lang 'Chinese-GB) (eq last-lang 'Chinese-CNS))
-	(setq last-chinese last-lang))
-    (setq i 0)
-    (while (< i len)
-      (setq j (egg-next-single-property-change i 'egg-lang str len))
-      (if (null (egg-get-language i str))
-	  (progn
-	    (setq c (egg-string-to-char-at str i)
-		  cset (char-charset c))
-	    (cond
-	     ((eq cset 'chinese-sisheng)
-	      (egg-string-match-charset 'chinese-sisheng str i)
-	      (setq l (match-end 0)
-		    j (min j l)
-		    lang 'Chinese))
-	     ((setq l (egg-chinese-syllable str i))
-	      (setq j (+ i l)
-		    lang 'Chinese))
-	     ((eq cset 'ascii)
-	      (if (eq (string-match "[\0-\177\240-\377]+" str (1+ i)) (1+ i))
-		  (setq j (match-end 0))
-		(setq j (1+ i)))
-	      (if (and (< j len)
-		       (eq (char-charset (egg-string-to-char-at str j))
-			   'chinese-sisheng))
-		  (setq j (max (1+ i) (- j 6))))
-	      (setq lang nil))
-	     ((eq cset 'composition)
-	      (setq j (+ i (egg-char-bytes c))
-		    lang (egg-charset-to-language
-			  (char-charset
-			   (car (decompose-composite-char c 'list))))))
-	     (t
-	      (egg-string-match-charset cset str i)
-	      (setq j (match-end 0)
-		    lang (egg-charset-to-language cset))))
-	    (if lang
-		(put-text-property i j 'egg-lang lang str))))
-      (setq i j))
-    ;; 2nd pass -- set language property
-    (setq i 0)
-    (while (< i len)
-      (setq lang (egg-get-language i str))
-      (cond
-       ((null lang)
-	(setq lang (or last-lang
-		       (egg-next-part-lang str i))))
-       ((equal lang 'Chinese)
-	(setq lang (or last-chinese
-		       (egg-next-chinese-lang str i)))))
-      (setq last-lang lang)
-      (if (or (eq lang 'Chinese-GB) (eq lang 'Chinese-CNS))
-	  (setq last-chinese lang))
-      (setq j i
-	    i (egg-next-single-property-change i 'egg-lang str len))
-      (egg-remove-all-text-properties j i str)
-      (put-text-property j i 'egg-lang lang str))))
-
-;;; Should think again the interface to language-info-alist
-(defun egg-charset-to-language (charset)
-  (let ((list language-info-alist))
-    (while (and list
-		(null (memq charset (assq 'charset (car list)))))
-      (setq list (cdr list)))
-    (if list
-	(intern (car (car list))))))
-
-(defun egg-next-part-lang (str pos)
-  (let ((lang (get-text-property
-	       (egg-next-single-property-change pos 'egg-lang str (length str))
-	       'egg-lang str)))
-    (if (eq lang 'Chinese)
-	(egg-next-chinese-lang str pos)
-      (or lang
-	  its-current-language
-	  egg-default-language))))
-
-(defun egg-next-chinese-lang (str pos)
-  (let ((len (length str)) lang)
-    (while (and (< pos len) (null lang))
-      (setq pos (egg-next-single-property-change pos 'egg-lang str len)
-	    lang (egg-get-language pos str))
-      (if (null (or (eq lang 'Chinese-GB)
-		    (eq lang 'Chinese-CNS)))
-	  (setq lang nil)))
-    (cond
-     (lang lang)
-     ((eq its-current-language 'Chinese-GB)  'Chinese-GB)
-     ((eq its-current-language 'Chinese-CNS) 'Chinese-CNS)
-     ((eq egg-default-language 'Chinese-GB)  'Chinese-GB)
-     ((eq egg-default-language 'Chinese-CNS) 'Chinese-CNS)
-     (t 'Chinese-GB))))
-
-;;
-;; return value ::= ( (<backend> ( <lang>... ) <source string> )... )
-;;
-(defun egg-assign-backend (source n)
-  (let ((len (length source))
-	(i 0)
-	j s lang backend retval)
-    (while (< i len)
-      (setq j (egg-next-single-property-change i 'egg-lang source len)
-	    s (substring source i j)
-	    lang (egg-get-language 0 s)
-	    backend (egg-get-conversion-backend lang n t))
-      (egg-remove-all-text-properties 0 (- j i) s)
-      (put-text-property 0 (- j i) 'egg-lang lang s)
-      (setq retval (nconc retval (list (list backend (list lang) s)))
-	    i j))
-    (prog1
-	retval
-      (while retval
-	(if (or (egg-default-conversion-backend-p (car (car retval)))
-		(null (equal (car (car retval)) (car (nth 1 retval)))))
-	    (setq retval (cdr retval))
-	  (nconc (nth 1 (car retval)) (nth 1 (nth 1 retval)))
-	  (setcar (nthcdr 2 (car retval))
-		  (concat (nth 2 (car retval)) (nth 2 (nth 1 retval))))
-	  (setcdr retval (cddr retval)))))))
-
-(defun egg-search-file (filename path)
-  (let (file)
-    (if (file-name-directory filename)
-	(setq file (substitute-in-file-name (expand-file-name filename))
-	      file (and (file-readable-p file) file))
-      (while (and (null file) path)
-	(if (stringp (car path))
-	    (setq file (substitute-in-file-name
-			(expand-file-name filename (car path)))
-		  file (and (file-exists-p file) file)))
-	(setq path (cdr path)))
-      file)))
-
-(defvar egg-default-startup-file "eggrc"
-  "Egg startup file name (system default)")
-
-(defun egg-load-startup-file (backend lang)
-  (let ((eggrc (or (egg-search-file egg-startup-file
-				    egg-startup-file-search-path)
-		   (egg-search-file egg-default-startup-file load-path))))
-    (if eggrc
 	(condition-case error
-	    (let ((egg-backend-type backend) (egg-language lang))
-	      (load-file eggrc))
-	  (error
-	   (message "%s: %s" (car error)
-		    (mapconcat (lambda (s) (format "%S" s)) (cdr error) ", "))
-	   (egg-error 'rcfile-error))
-	  (quit
-	   (egg-error 'rcfile-error)))
-      (egg-error 'no-rcfile egg-startup-file-search-path))))
+	    (progn
+	      (setq converted
+		    (egg-start-conversion backend source context))
+	      (if (null converted)
+		  (egg-error "no conversion result")
+		(setq success t)))
+	  ((egg-error quit)
+	   (cond
+	    ((null success)
+	     (ding)))))
+	(delete-region start end)
+	(egg-insert-bunsetsu-list backend converted 'continue)
+	(goto-char start)
+	(if (null success)
+	    (egg-exit-conversion))))))
 
 (defun egg-get-conversion-face (lang)
   (if (null (consp egg-conversion-face))
@@ -672,9 +456,9 @@ mode, if non-NIL."
 	(egg-set-face 0 len1 face converted))
     converted))
 
-(defun egg-insert-bunsetsu-list (backend bunsetsu-list &optional last before)
+(defun egg-insert-bunsetsu-list (backend bunsetsu-list &optional last)
   (let ((len (length bunsetsu-list)))
-    (funcall (if before 'insert-before-markers 'insert)
+    (funcall 'insert
 	     (mapconcat
 	      (lambda (b)
 		(setq len (1- len))
@@ -695,7 +479,7 @@ mode, if non-NIL."
    ((<= n 0)
     (egg-beginning-of-conversion-buffer 1))
    (t
-    (goto-char (egg-next-single-property-change (point) 'egg-end))
+    (goto-char (next-single-property-change (point) 'egg-end))
     (backward-char))))
 
 (defun egg-backward-bunsetsu (n)
@@ -727,10 +511,10 @@ mode, if non-NIL."
 	  n (1- n)))
   p)
 
-(defun egg-next-bunsetsu-point (p &optional n obj lim)
+(defun egg-next-bunsetsu-point (p &optional n obj)
   (or n (setq n 1))
   (while (> n 0)
-    (setq p (egg-next-single-property-change p (egg-bunsetsu-info) obj lim)
+    (setq p (next-single-property-change p (egg-bunsetsu-info) obj)
 	  n (1- n)))
   p)
 
@@ -851,29 +635,11 @@ mode, if non-NIL."
   (let* ((backend (egg-get-backend (point)))
 	 (start (egg-previous-bunsetsu-point (point) (length (cadr new-b))))
 	 (end (egg-next-bunsetsu-point (point) (+ (length b) (length tail))))
-	 (last (egg-get-bunsetsu-last (1- end)))
-	 (insert-before (buffer-has-markers-at end)))
-    (cond
-     ((buffer-has-markers-at end)
-      (delete-region start end)
-      (egg-insert-bunsetsu-list backend
-				(append (cadr new-b) (car new-b) (caddr new-b))
-				last t))
-     ((buffer-has-markers-at (egg-next-bunsetsu-point (point) (length b)))
-      (delete-region start end)
-      (egg-insert-bunsetsu-list backend (append (cadr new-b) (car new-b))
-				nil t)
-      (egg-insert-bunsetsu-list backend (caddr new-b) last))
-     ((buffer-has-markers-at (point))
-      (delete-region start end)
-      (egg-insert-bunsetsu-list backend (cadr new-b) nil t)
-      (egg-insert-bunsetsu-list backend (append (car new-b) (caddr new-b))
-				last))
-     (t
-      (delete-region start end)
-      (egg-insert-bunsetsu-list backend
-				(append (cadr new-b) (car new-b) (caddr new-b))
-				last)))
+	 (last (egg-get-bunsetsu-last (1- end))))
+    (delete-region start end)
+    (egg-insert-bunsetsu-list backend
+			      (append (cadr new-b) (car new-b) (caddr new-b))
+			      last)
     (goto-char (egg-next-bunsetsu-point start (length (cadr new-b))))
     (if egg-inspect-mode
 	(egg-inspect-bunsetsu t))))
@@ -1078,12 +844,11 @@ mode, if non-NIL."
   (let* ((inhibit-read-only t)
 	 (backend (egg-get-backend (point)))
 	 (source (funcall func (egg-get-bunsetsu-info (point))))
-	 (reconv-backend (egg-get-reconvert-backend backend n))
 	 (p (point))
 	 (last (egg-get-bunsetsu-last (point)))
 	 new prev-b next-b)
-    (if (or (null reconv-backend)
-	    (null (setq new (egg-start-conversion reconv-backend source nil))))
+    (if (or (null backend)
+	    (null (setq new (egg-start-conversion backend source nil))))
 	(ding)
       (delete-region p (egg-next-bunsetsu-point p))
       (setq next-b (egg-get-bunsetsu-info (point)))
@@ -1116,18 +881,18 @@ mode, if non-NIL."
 		  (previous-single-property-change (point) 'egg-start)))
 	 (end (if (get-text-property (point) 'egg-end)
 		  (point)
-		(egg-next-single-property-change (point) 'egg-end)))
+		(next-single-property-change (point) 'egg-end)))
 	 (decided (buffer-substring start (point)))
 	 (undecided (buffer-substring (point) end))
 	 i len bunsetsu source context)
     (delete-region
      (previous-single-property-change start 'egg-start nil (point-min))
-     (egg-next-single-property-change end 'egg-end nil (point-max)))
+     (next-single-property-change end 'egg-end))
     (setq i 0
 	  len (length decided))
     (while (< i len)
       (setq bunsetsu (nconc bunsetsu (list (egg-get-bunsetsu-info i decided)))
-	    i (egg-next-bunsetsu-point i 1 decided len))
+	    i (egg-next-bunsetsu-point i 1 decided))
       (if (or (= i len)
 	      (egg-get-bunsetsu-last (1- i) decided))
 	  (progn
@@ -1147,11 +912,7 @@ mode, if non-NIL."
 	(setq bunsetsu (egg-get-bunsetsu-info i undecided)
 	      source (cons (egg-get-bunsetsu-source bunsetsu)
 			   source))
-	(put-text-property 0 (length (car source))
-			   'egg-lang
-			   (egg-get-source-language bunsetsu)
-			   (car source))
-	(setq i (egg-next-bunsetsu-point i 1 undecided len)))
+	(setq i (egg-next-bunsetsu-point i 1 undecided)))
       (its-restart (apply 'concat (nreverse source)) t t context))))
 
 (defun egg-decide-first-char ()
@@ -1162,19 +923,19 @@ mode, if non-NIL."
 		  (previous-single-property-change (point) 'egg-start)))
 	 (end (if (get-text-property (point) 'egg-end)
 		  (point)
-		(egg-next-single-property-change (point) 'egg-end)))
+		(next-single-property-change (point) 'egg-end)))
 	 (bunsetsu (egg-get-bunsetsu-info start)))
     (delete-region
      (previous-single-property-change start 'egg-start nil (point-min))
-     (egg-next-single-property-change end 'egg-end nil (point-max)))
+     (next-single-property-change end 'egg-end))
     (egg-end-conversion (list bunsetsu) nil)
-    (insert (egg-string-to-char-at (egg-get-bunsetsu-converted bunsetsu) 0))))
+    (insert (aref (egg-get-bunsetsu-converted bunsetsu) 0))))
 
 (defun egg-exit-conversion ()
   (interactive)
   (if (egg-conversion-fence-p)
       (progn
-	(goto-char (egg-next-single-property-change (point) 'egg-end))
+	(goto-char (next-single-property-change (point) 'egg-end))
 	(egg-decide-before-point))))
 
 (defun egg-abort-conversion ()
@@ -1188,15 +949,15 @@ mode, if non-NIL."
 		'egg-start nil (point-min)))
     (setq source (get-text-property (point) 'egg-source)
 	  context (get-text-property (point) 'egg-context))
-    (delete-region (point) (egg-next-single-property-change
-			    (egg-next-single-property-change (point) 'egg-end)
-			    'egg-end nil (point-max)))
+    (delete-region (point) (next-single-property-change
+			    (next-single-property-change (point) 'egg-end)
+			    'egg-end))
     (its-restart source nil nil context)))
 
 (defun egg-toroku-bunsetsu ()
   (interactive)
   (let* ((p (point))
-	 (lang (egg-get-source-language (egg-get-bunsetsu-info p)))
+	 (lang nil)
 	 (egg-mode-hook (or (cdr (assq lang its-select-func-alist))
 			    (cdr (assq lang its-select-func-default-alist))))
 	 (s "")
@@ -1213,17 +974,15 @@ mode, if non-NIL."
       (and (equal s "") (ding)))
     (egg-toroku-string s nil yomi lang (egg-bunsetsu-get-backend bunsetsu))))
 
-(defun egg-toroku-region (start end &optional nth-backend)
+(defun egg-toroku-region (start end)
   (interactive "r\nP")
-  (egg-toroku-string (buffer-substring start end) nil nil nil nil nth-backend))
+  (egg-toroku-string (buffer-substring start end) nil nil nil nil))
 
-(defun egg-toroku-string (str &optional yomi guess lang backend nth-backend)
+(defun egg-toroku-string (str &optional yomi guess lang backend)
   (let (egg-mode-hook result)
     (if (= (length str) 0)
 	(egg-error "Egg word registration: null string"))
-    (egg-separate-languages str lang)
-    (setq lang (egg-get-language 0 str)
-	  egg-mode-hook (or (cdr (assq lang its-select-func-alist))
+    (setq egg-mode-hook (or (cdr (assq lang its-select-func-alist))
 			    (cdr (assq lang its-select-func-default-alist))))
     (or yomi (setq yomi ""))
     (while (equal yomi "")
@@ -1231,13 +990,9 @@ mode, if non-NIL."
 		  (format (egg-get-message 'register-yomi) str)
 		  guess egg-last-method-name))
       (and (equal yomi "") (ding)))
-    (egg-separate-languages yomi lang)
-    (if (null backend)
-	(progn
-	  (setq backend (egg-assign-backend str nth-backend))
-	  (if (cdr backend)
-	      (egg-error "Egg word registration: cannot decide backend"))
-	  (setq backend (egg-get-current-backend (caar backend)))))
+    (and (null backend)
+	 (null (setq backend (egg-get-conversion-backend)))
+	 (egg-error "Egg word registration: cannot decide backend"))
     (setq result (egg-word-registration backend str yomi))
     (if result
 	(apply 'message (egg-get-message 'registered) str yomi result)

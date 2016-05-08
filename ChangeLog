@@ -1,3 +1,57 @@
+2014-11-05  Niibe Yutaka  <gniibe@fsij.org>
+
+	* egg.el (egg-version): 4.1.1.
+
+	* Makefile.in (INITELS): Remove eggrc.
+	(EGGSRCS): Remove egg/cannarpc.el, egg/canna.el,
+	egg/wnnrpc.el and egg/wnn.el.
+
+	* egg-edep.el: Remove.
+
+	* egg-cnv.el (egg-decide-first-char): Use aref.
+
+	* its.el (its-exit-mode-internal): Simplify with no multi-lang.
+	(its-kick-convert-region, its-kick-convert-region-or-self-insert):
+	Likewise.
+	(its-setup-yanked-portion): Use +1 (only for Emacs 20.3 or later).
+
+	* egg-cnv.el (egg-get-conversion-backend): Remove.
+	(egg-default-conversion-backend-p): Remove.
+	(egg-get-current-backend): Remove.
+	(egg-get-reconvert-backend): Remove.
+	(egg-get-conversion-backend, egg-convert-region): Simplify.
+	(egg-assign-backend, egg-search-file): Remove.
+	(egg-insert-bunsetsu-list): Simplify.
+	(egg-insert-new-bunsetsu): Simplify.
+	(egg-reconvert-bunsetsu-internal): Likewise.
+	(egg-toroku-region): Likewise.
+
+	* egg.el (egg-mark-list, egg-suppress-marking)
+	(egg-mark-modification, egg-redraw-face): Remove.
+	(egg-set-face): Just add face property to text.
+
+2014-11-04  Niibe Yutaka  <gniibe@fsij.org>
+
+	* egg-cnv.el (egg-separate-languages): Remove.
+	(egg-convert-region, egg-toroku-string): Don't call
+	egg-separate-languages.
+	* its.el (its-setup-yanked-portion): Likewise.
+
+	* egg-cnv.el (egg-get-language): Remove.
+	(egg-toroku-string): Don't call egg-get-language.
+
+	* egg-cnv.el (egg-next-chinese-lang, egg-next-part-lang): Remove.
+
+	* egg-cnv.el (egg-start-conversion-noconv): Don't put language,
+	it's NIL always.
+	(egg-decide-before-point, egg-toroku-bunsetsu): Likewise.
+	(egg-assign-backend): Likewise.
+
+	* egg-cnv.el (egg-charset-to-language): Remove.
+
+	* egg-cnv.el (egg-default-startup-file, egg-load-startup-file):
+	Remove.
+
 2014-10-31  Niibe Yutaka  <gniibe@fsij.org>
 
 	* egg.el (egg-version): 4.1.0 as a fork by gniibe.

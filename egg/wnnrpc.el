@@ -714,8 +714,14 @@
      ,send-expr ,@rcv-exprs))
 
 (defmacro wnnrpc-get-result (&rest body)
-  `(let (result)
-     (comm-unpack (i) result)
+  `(let (result resulth)
+     (comm-unpack (w w) resulth result)
+     (cond ((and (= result 65535) (= resulth 65535))
+           (setq result -1))
+          ((= resulth (lsh (lsh resulth 16) -16))
+           (setq result (+ (lsh resulth 16) result)))
+          (t
+           (error "overflow")))
      (if (< result 0)
        (progn
 	 (comm-unpack (i) result)
@@ -1716,8 +1722,7 @@ HINSHI and FUZOKUGO are information of preceding bunsetsu."
 		  (insert contents)
 		  (if (= result 2)
 		      (insert-file-contents local-filename nil (1- (point))))
-		  (save-excursion
-		    (set-buffer (process-buffer proc))
+		  (with-current-buffer (process-buffer proc)
 		    (wnnrpc-get-result)))))))))
     ((quit error)
      (wnnrpc-call-with-environment env ()

@@ -30,7 +30,7 @@
 
 ;;; Code:
 
-(defconst egg-version "4.0.6+20020909cvs"
+(defconst egg-version "4.1.0"
   "Version number for this version of Tamago.")
 
 (eval-when-compile
@@ -42,7 +42,9 @@
   "simple input method for Tamago 4." t)
 
 (defgroup egg nil
-  "Tamago Version 4.")
+  "Tamago Version 4."
+  :group 'leim
+  :version "24.3")
 
 (defcustom egg-mode-preference t
   "*Make Egg as modefull input method, if non-NIL."
@@ -167,16 +169,15 @@
 	  (setq egg-modefull-mode t)
 	  (its-define-select-keys egg-modefull-map))
       (setq egg-modeless-mode t))
-    (setq inactivate-current-input-method-function 'egg-mode)
+    (setq deactivate-current-input-method-function 'egg-mode)
     (setq describe-current-input-method-function 'egg-help)
-    (make-local-hook 'input-method-activate-hook)
     (add-hook 'input-method-activate-hook 'its-set-mode-line-title nil t)
     (if (eq (selected-window) (minibuffer-window))
 	(add-hook 'minibuffer-exit-hook 'egg-exit-from-minibuffer))
     (run-hooks 'egg-mode-hook)))
 
 (defun egg-exit-from-minibuffer ()
-  (inactivate-input-method)
+  (deactivate-input-method)
   (if (<= (minibuffer-depth) 1)
       (remove-hook 'minibuffer-exit-hook 'egg-exit-from-minibuffer)))
 
@@ -209,10 +210,10 @@
 (defvar egg-mark-list nil)
 (defvar egg-suppress-marking nil)
 
-(defun egg-set-face (beg eng face &optional object)
+(defun egg-set-face (beg end face &optional object)
   (let ((hook (get-text-property beg 'modification-hooks object)))
     (put face 'face face)
-    (add-text-properties beg eng
+    (add-text-properties beg end
 			 (list 'category face
 			       'egg-face t
 			       'modification-hooks (cons 'egg-mark-modification

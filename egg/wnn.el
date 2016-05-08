@@ -384,8 +384,6 @@ by ':' and digit N."
 (defsubst wnnenv-set-bmodify (env v)   (aset (wnnenv-get-auto-learn env) 1 v))
 
 (defsubst wnnenv-is-wnn6 (env)         (eq (wnnenv-get-wnn-version env) 'wnn6))
-(defsubst wnnenv-is-wnn7 (env)         (eq (wnnenv-get-wnn-version env) 'wnn7))
-(defsubst wnnenv-is-wnn8 (env)         (eq (wnnenv-get-wnn-version env) 'wnn8))
 
 (defvar wnn-environments nil
   "Environment for Wnn conversion server")
@@ -949,7 +947,7 @@ Return the list of bunsetsu."
     (let* ((head (car bunsetsu-list))
 	   (env (wnn-bunsetsu-get-env head)))
       (prog1
-	  (if (or (wnnenv-is-wnn6 env) (wnnenv-is-wnn7 env) (wnnenv-is-wnn8 env))
+	  (if (wnnenv-is-wnn6 env)
 	      (progn
 		(wnn-clear-now-flag bunsetsu-list)
 		(wnn-merge-fi-rel head (cdr bunsetsu-list))
@@ -1229,7 +1227,8 @@ Return the list of bunsetsu."
 		  myname (if (equal hostname "") "unix" wnn-system-name))
 	    (if (null (string-match ":" hostname))
 		(setq port-off 0)
-	      (setq port-off (string-to-int (substring hostname (match-end 0)))
+	      (setq port-off (string-to-number
+			      (substring hostname (match-end 0)))
 		    hostname (substring hostname 0 (match-beginning 0))))
 	    (and (equal hostname "") (setq hostname "localhost"))
 	    (let ((inhibit-quit save-inhibit-quit))
@@ -1246,7 +1245,7 @@ Return the list of bunsetsu."
 						  (+ port port-off)))
 		((error quit))))
 	    (when proc
-	      (process-kill-without-query proc)
+	      (set-process-query-on-exit-flag proc nil)
 	      (set-process-coding-system proc 'binary 'binary)
 	      (set-process-sentinel proc 'wnn-comm-sentinel)
 	      (set-marker-insertion-type (process-mark proc) t)
@@ -1265,17 +1264,12 @@ Return the list of bunsetsu."
 (defvar wnn-current-envspec-reverse nil)
 (defvar wnn-server-type nil)
 (defvar wnn-wnn6-server nil)
-(defvar wnn-wnn7-server nil)
-(defvar wnn-wnn8-server nil)
 
 (defmacro wnn-envspec-conv-param-name-list ()
   ''(last-is-first complex okuri-learn okuri
      prefix-learn prefix suffix-learn common-learn freq-func
      numeric alphabet symbol yuragi rendaku bunsetsugiri muhenkan
-     fi-relation-learn fi-freq-func
-     ;; Wnn7/8 funcs bellow
-     yosoku-learn yosoku-max-disp yosoku-last-is-first
-     boin-kabusoku shiin-choka n-choka nihongo-kosei))
+     fi-relation-learn fi-freq-func))
 
 (defmacro wnn-envspec-conv-param-length ()
   (length (wnn-envspec-conv-param-name-list)))
@@ -1376,7 +1370,7 @@ is non-NIL."
 		   `((null (or (eq ,drw nil) (eq ,drw t)
 			       (eq ,drw 0) (eq ,drw 1)
 			       ,@(if dmax
-				     `((and (or wnn-wnn6-server wnn-wnn7-server wnn-wnn8-server)
+				     `((and wnn-wnn6-server
 					    ,@(let ((x `((eq ,drw 2))))
 						(when (>= dmax 3)
 						  (nconc x `((eq ,drw 3))))
@@ -1387,7 +1381,7 @@ is non-NIL."
 		   `((null (or (eq ,frw nil) (eq ,frw t)
 			       (eq ,frw 0) (eq ,frw 1)
 			       ,@(if fmax
-				     `((and (or wnn-wnn6-server wnn-wnn7-server wnn-wnn8-server)
+				     `((and wnn-wnn6-server
 					    ,@(let ((x `((eq ,frw 2))))
 						(when (>= fmax 3)
 						  (nconc x `((eq ,frw 3))))
@@ -1409,22 +1403,6 @@ is non-NIL."
   `(or wnn-wnn6-server
        (egg-error ,(format "%s is available only on Wnn6" func))))
 
-(defmacro wnn-wnn7-env-func (func)
-  `(or wnn-wnn7-server
-       (egg-error ,(format "%s is available only on Wnn7" func))))
-
-(defmacro wnn-wnn8-env-func (func)
-  `(or wnn-wnn8-server
-       (egg-error ,(format "%s is available only on Wnn8" func))))
-
-(defmacro wnn-wnn7-and-wnn8-env-func (func)
-  `(or (or wnn-wnn7-server wnn-wnn8-server)
-       (egg-error ,(format "%s is available only on Wnn7/Wnn8" func))))
-
-(defmacro wnn-wnn678-env-func (func)
-  `(or (or wnn-wnn6-server wnn-wnn7-server wnn-wnn8-server)
-       (egg-error ,(format "%s is available only on Wnn6/Wnn7/Wnn8" func))))
-
 (defun wnn-add-dict (dict freq priority dict-rw freq-rw
 		     &optional dict-passwd freq-passwd &rest reverse)
   (wnn-add-dict-param-check wnn-add-dict
@@ -1435,7 +1413,7 @@ is non-NIL."
 			    dict-passwd freq-passwd reverse))
 
 (defun wnn-add-fisys-dict (dict freq freq-rw &optional freq-passwd)
-  (wnn-wnn678-env-func wnn-add-fisys-dict)
+  (wnn-wnn6-env-func wnn-add-fisys-dict)
   (wnn-add-dict-param-check wnn-add-fisys-dict
 			    dict freq nil nil nil freq-rw 3
 			    nil freq-passwd)
@@ -1444,7 +1422,7 @@ is non-NIL."
 
 (defun wnn-add-fiusr-dict (dict freq dict-rw freq-rw
 			   &optional dict-passwd freq-passwd)
-  (wnn-wnn678-env-func wnn-add-fiusr-dict)
+  (wnn-wnn6-env-func wnn-add-fiusr-dict)
   (wnn-add-dict-param-check wnn-add-fiusr-dict
 			    dict freq nil dict-rw 3 freq-rw 3
 			    dict-passwd freq-passwd)
@@ -1454,7 +1432,7 @@ is non-NIL."
 
 (defun wnn-add-notrans-dict (dict priority dict-rw
 			     &optional dict-passwd &rest reverse)
-  (wnn-wnn678-env-func wnn-add-notrans-dict)
+  (wnn-wnn6-env-func wnn-add-notrans-dict)
   (wnn-add-dict-param-check wnn-add-notrans-dict
 			    dict nil priority dict-rw nil nil nil
 			    dict-passwd nil reverse)
@@ -1465,7 +1443,7 @@ is non-NIL."
 
 (defun wnn-add-bmodify-dict (dict priority dict-rw
 			     &optional dict-passwd &rest reverse)
-  (wnn-wnn678-env-func wnn-add-notrans-dict)
+  (wnn-wnn6-env-func wnn-add-notrans-dict)
   (wnn-add-dict-param-check wnn-add-bmodify-dict
 			    dict nil priority dict-rw nil nil nil
 			    dict-passwd nil reverse)
@@ -1489,22 +1467,22 @@ is non-NIL."
 		     (t (wnn-arg-type-error ,func)))))
 
 (defun wnn-set-last-is-first-mode (flag)
-  (wnn-wnn678-env-func wnn-set-last-is-first-mode)
+  (wnn-wnn6-env-func wnn-set-last-is-first-mode)
   (wnn-boolean-param-check wnn-set-last-is-first-mode flag)
   (wnn-envspec-set-conv-param-last-is-first wnn-current-envspec flag))
 
 (defun wnn-set-complex-conv-mode (flag)
-  (wnn-wnn678-env-func wnn-set-complex-conv-mode)
+  (wnn-wnn6-env-func wnn-set-complex-conv-mode)
   (wnn-boolean-param-check wnn-set-complex-conv-mode flag)
   (wnn-envspec-set-conv-param-complex wnn-current-envspec flag))
 
 (defun wnn-set-okuri-learn-mode (flag)
-  (wnn-wnn678-env-func wnn-set-okuri-learn-mode)
+  (wnn-wnn6-env-func wnn-set-okuri-learn-mode)
   (wnn-boolean-param-check wnn-set-okuri-learn-mode flag)
   (wnn-envspec-set-conv-param-okuri-learn wnn-current-envspec flag))
 
 (defun wnn-set-okuri-flag (mode)
-  (wnn-wnn678-env-func wnn-set-okuri-flag)
+  (wnn-wnn6-env-func wnn-set-okuri-flag)
   (setq mode (cond ((or (eq mode -1) (eq mode 'regulation)) -1)
 		   ((or (eq mode  0) (eq mode 'no))          0)
 		   ((or (eq mode  1) (eq mode 'yes))         1)
@@ -1512,29 +1490,29 @@ is non-NIL."
   (wnn-envspec-set-conv-param-okuri wnn-current-envspec mode))
 
 (defun wnn-set-prefix-learn-mode (flag)
-  (wnn-wnn678-env-func wnn-set-prefix-learn-mode)
+  (wnn-wnn6-env-func wnn-set-prefix-learn-mode)
   (wnn-boolean-param-check wnn-set-prefix-learn-mode flag)
   (wnn-envspec-set-conv-param-prefix-learn wnn-current-envspec flag))
 
 (defun wnn-set-prefix-flag (mode)
-  (wnn-wnn678-env-func wnn-set-prefix-flag)
+  (wnn-wnn6-env-func wnn-set-prefix-flag)
   (setq mode (cond ((or (eq mode 0) (eq mode 'hiragana)) 0)
 		   ((or (eq mode 1) (eq mode 'kanji))    1)
 		   (t (wnn-arg-type-error wnn-set-prefix-flag))))
   (wnn-envspec-set-conv-param-prefix wnn-current-envspec mode))
 
 (defun wnn-set-suffix-learn-mode (flag)
-  (wnn-wnn678-env-func wnn-set-suffix-learn-mode)
+  (wnn-wnn6-env-func wnn-set-suffix-learn-mode)
   (wnn-boolean-param-check wnn-set-suffix-learn-mode flag)
   (wnn-envspec-set-conv-param-suffix-learn wnn-current-envspec flag))
 
 (defun wnn-set-common-learn-mode (flag)
-  (wnn-wnn678-env-func wnn-set-common-learn-mode)
+  (wnn-wnn6-env-func wnn-set-common-learn-mode)
   (wnn-boolean-param-check wnn-set-common-learn-mode flag)
   (wnn-envspec-set-conv-param-common-learn wnn-current-envspec flag))
 
 (defun wnn-set-freq-func-mode (mode)
-  (wnn-wnn678-env-func wnn-set-freq-func-mode)
+  (wnn-wnn6-env-func wnn-set-freq-func-mode)
   (setq mode (cond ((or (eq mode 0) (eq mode 'not))    0)
 		   ((or (eq mode 1) (eq mode 'always)) 1)
 		   ((or (eq mode 2) (eq mode 'high))   2)
@@ -1544,7 +1522,7 @@ is non-NIL."
   (wnn-envspec-set-conv-param-freq-func wnn-current-envspec mode))
 
 (defun wnn-set-numeric-mode (mode)
-  (wnn-wnn678-env-func wnn-set-numeric-mode)
+  (wnn-wnn6-env-func wnn-set-numeric-mode)
   (setq mode (cond ((or (eq mode  -2) (eq mode 'han))       -2)
 		   ((or (eq mode -12) (eq mode 'zen))      -12)
 		   ((or (eq mode -13) (eq mode 'kan))      -13)
@@ -1556,14 +1534,14 @@ is non-NIL."
   (wnn-envspec-set-conv-param-numeric wnn-current-envspec mode))
 
 (defun wnn-set-alphabet-mode (mode)
-  (wnn-wnn678-env-func wnn-set-alphabet-mode)
+  (wnn-wnn6-env-func wnn-set-alphabet-mode)
   (setq mode (cond ((or (eq mode  -4) (eq mode 'han))  -4)
 		   ((or (eq mode -30) (eq mode 'zen)) -30)
 		   (t (wnn-arg-type-error wnn-set-alphabet-mode))))
   (wnn-envspec-set-conv-param-alphabet wnn-current-envspec mode))
 
 (defun wnn-set-symbol-mode (mode)
-  (wnn-wnn678-env-func wnn-set-symbol-mode)
+  (wnn-wnn6-env-func wnn-set-symbol-mode)
   (setq mode (cond ((or (eq mode  -5) (eq mode 'han))  -5)
 		   ((or (eq mode -40) (eq mode 'jis)) -40)
 		   ((or (eq mode -41) (eq mode 'asc)) -41)
@@ -1571,59 +1549,21 @@ is non-NIL."
   (wnn-envspec-set-conv-param-symbol wnn-current-envspec mode))
 
 (defun wnn-set-yuragi-mode (flag)
-  (wnn-wnn678-env-func wnn-set-yuragi-mode)
+  (wnn-wnn6-env-func wnn-set-yuragi-mode)
   (wnn-boolean-param-check wnn-set-yuragi-mode flag)
   (wnn-envspec-set-conv-param-yuragi wnn-current-envspec flag))
 
 (defun wnn-set-rendaku-mode (flag)
-  (wnn-wnn678-env-func wnn-set-rendaku-mode)
+  (wnn-wnn6-env-func wnn-set-rendaku-mode)
   (wnn-boolean-param-check wnn-set-rendaku-mode flag)
   (wnn-envspec-set-conv-param-rendaku wnn-current-envspec flag))
-
-;; added for Wnn7
-(defun wnn-set-yosoku-learn-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-yosoku-learn-mode)
-  (wnn-boolean-param-check wnn-set-yosoku-learn-mode flag)
-  (wnn-envspec-set-conv-param-yosoku-learn wnn-current-envspec flag))
-
-(defun wnn-set-yosoku-max-disp (mode)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-yosoku-max-disp)
-  (setq mode (cond ((and (<= mode 10) (>= mode 1) mode))
-		   (t (wnn-arg-type-error wnn-set-yosoku-max-disp))))
-  (wnn-envspec-set-conv-param-yosoku-max-disp wnn-current-envspec mode))
-
-(defun wnn-set-yosoku-last-is-first-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-yosoku-last-is-first-mode)
-  (wnn-boolean-param-check wnn-set-yosoku-last-is-first-mode flag)
-  (wnn-envspec-set-conv-param-yosoku-last-is-first wnn-current-envspec flag))
-
-(defun wnn-set-boin-kabusoku-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-boin-kabusoku-mode)
-  (wnn-boolean-param-check wnn-set-boin-kabusoku-mode flag)
-  (wnn-envspec-set-conv-param-boin-kabusoku wnn-current-envspec flag))
-
-(defun wnn-set-shiin-choka-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-shiin-choka-mode)
-  (wnn-boolean-param-check wnn-set-shiin-choka-mode flag)
-  (wnn-envspec-set-conv-param-shiin-choka wnn-current-envspec flag))
-
-(defun wnn-set-n-choka-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-n-choka-mode)
-  (wnn-boolean-param-check wnn-set-n-choka-mode flag)
-  (wnn-envspec-set-conv-param-n-choka wnn-current-envspec flag))
-
-(defun wnn-set-nihongo-kosei-mode (flag)
-  (wnn-wnn7-and-wnn8-env-func wnn-set-nihongo-kosei-mode)
-  (wnn-boolean-param-check wnn-set-nihongo-kosei-mode flag)
-  (wnn-envspec-set-conv-param-nihongo-kosei wnn-current-envspec flag))
-
 
 (defun wnn-renbunsetsu-conversion (env yomi hinshi fuzokugo v context)
   (let ((result
 	 (cond
 	  ((wnnenv-get-tankan env)
 	   (wnnrpc-tanbunsetsu-conversion env yomi hinshi fuzokugo v))
-	  ((or (wnnenv-is-wnn6 env) (wnnenv-is-wnn7 env) (wnnenv-is-wnn8 env))
+	  ((wnnenv-is-wnn6 env)
 	   (wnnrpc-fi-renbunsetsu-conversion env yomi hinshi fuzokugo v
 					     context))
 	  (t
@@ -1899,8 +1839,6 @@ On failure, return negative error code."
 						 (eq wnn-server-type 'tserver))
 					     "PZ"))))
 	(fset 'is-wnn6-server (lambda () wnn-wnn6-server))
-	(fset 'is-wnn7-server (lambda () wnn-wnn7-server))
-	(fset 'is-wnn8-server (lambda () wnn-wnn8-server))
 	(fset 'set-wnn-fuzokugo 'wnn-set-fuzokugo)
 	(fset 'add-wnn-dict 'wnn-add-dict)
 	(fset 'set-wnn-param 'wnn-set-param)
@@ -1938,8 +1876,6 @@ environment."
 		    wnn-envspec-list nil)
 	      (condition-case err
 		  (let ((wnn-server-type server-type)
-			(wnn-wnn8-server (eq version 'wnn8))
-			(wnn-wnn7-server (eq version 'wnn7))
 			(wnn-wnn6-server (eq version 'wnn6)))
 		    (if wnn-use-v3-eggrc
 			(wnn-v3-eggrc-defines))
@@ -2011,10 +1947,8 @@ environment."
 	      (setq cvmask (wnn-envspec-conv-vmask spec)
 		    param (wnn-envspec-conv-param spec))
 	      (if (/= cvmask 0)
-		  (if (or (wnnenv-is-wnn7 env) (wnnenv-is-wnn8 env))
-		      (wnn7rpc-set-conversion-env-param env cvmask param)
-		    (wnnrpc-set-conversion-env-param env cvmask param)))))
-	   ((or (eq version 'wnn6) (eq version 'wnn7) (eq version 'wnn8))
+		  (wnnrpc-set-conversion-env-param env cvmask param))))
+	   ((eq version 'wnn6)
 	    (wnnenv-set-bmodify env (wnn-get-autolearning-dic-mode
 				     env (WNN-const BMODIFY_LEARN)))
 	    (wnnenv-set-notrans env (wnn-get-autolearning-dic-mode
@@ -2022,7 +1956,7 @@ environment."
 	  (cond
 	   ((eq (wnnenv-get-server-type env) 'jserver)
 	    (wnn-set-hinshi env 'noun "名詞")
-	    (when (or (wnnenv-is-wnn6 env) (wnnenv-is-wnn7 env) (wnnenv-is-wnn8 env))
+	    (when (wnnenv-is-wnn6 env)
 	      (wnn-set-hinshi env 'settou "接頭語(お)")
 	      (wnn-set-hinshi env 'rendaku "連濁")))
 	   ((eq (wnnenv-get-server-type env) 'cserver)
@@ -2075,7 +2009,7 @@ environment."
       (WNN-const DIC_RDONLY))))
 
 (defun wnn-get-dictionary-list-with-environment (env)
-  (if (or (wnnenv-is-wnn6 env) (wnnenv-is-wnn7 env) (wnnenv-is-wnn8 env))
+  (if (wnnenv-is-wnn6 env)
       (wnnrpc-get-fi-dictionary-list-with-environment env
 						      (WNN-const DIC_NO_TEMPS))
     (wnnrpc-get-dictionary-list-with-environment env)))

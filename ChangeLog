@@ -1,79 +1,76 @@
-2004-11-22  Kubo Hiroshi  <hiroshi-news@netird.ad.jp>
-	In fj.sources, <20041122.035305.59473152.hiroshi-news@netird.ad.jp>
+2014-10-31  Niibe Yutaka  <gniibe@fsij.org>
 
-	* its/jiskana.el: New file.
+	* egg.el (egg-version): 4.1.0 as a fork by gniibe.
 
-	* Makefile.in (ITSSRCS): Add its/jiskana.el.
+	* egg-cnv.el: Mention copyright notice is not correct,
+	but it's no problem to distribute under GPLv2+.
 
-	* its-keydef.el (its-define-select-key-list): Add jiskana.
+2014-10-30  Niibe Yutaka  <gniibe@fsij.org>
 
-2004-07-02  SANETO Takanori  <sanewo@ba2.so-net.ne.jp>
+	* leim-list.el ("Japanese"): Default is now Anthy backend.
 
-	* egg/anthy.el (anthy-new-environment): Use anthyipc-get-greeting
-	only right after starting the anthy-agent process.
+	* egg-cnv.el (egg-separate-characters): Remove.
+	(egg-get-char-size): Remove.
+	(egg-enlarge-bunsetsu-internal): Just use LENGTH.
 
-2004-05-21  Jun Kuriyama  <kuriyama@imgsrc.co.jp>
+	* egg.el (egg-mode): Don't call make-local-hook which is not
+	needed any more.
+	* menudiag.el (menudiag-selection-mode): Likewise.
 
-	* Makefile.in (install-site): Put the .nosearch file into egg and
-	its subdirectories.
+	* Makefile.in (datarootdir): New.
 
-2002-09-09  NIIBE Yutaka  <gniibe@m17n.org>
+	* leim-list.el ("chinese-gb-egg-wnn-py")
+	("chinese-gb-egg-wnn-zy", "chinese-gb-egg-wnn-qm")
+	("chinese-gb-egg-wnn-wb", "chinese-cns-egg-wnn-py")
+	("chinese-cns-egg-wnn-zy", "korean-egg-wnn"): Removal of Chinese
+	and Korean Wnn support, which was very experimental even at
+	the development days of 1999.
 
-	Check JIS x0213 support at compile time.
-	* check-jisx0213.el: New file.
-	* configure.in: Check if JIS X0213 is supported or not.
-	* Makefile.in (TOPSRCS): Remove egg-x0213.el.
-	(DEPS): Don't load jisx0213.el.
-	(ITSSRCS): Removed its/aynu.el.
-	(AYNU): New variable.
+	* configure: Regenerated.
 
-	Bug fix.
-	* its/thai.el (its-thai-add-vowel, its-thai-add-tone): Bug fixes.
-	Just call compose-string.
-	
-2002-08-26  ISHIKAWA Mutsumi <ishikawa@linux.or.jp>, 
-	Takahiro Kambe <taca@sky.yamashina.kyoto.jp>, 
-	Katsumi Yamaoka  <yamaoka@jpl.org>
+	* Makefile.in: Removal of @HAVE_JISX0213@.
 
-	* Makefile.in (TOPSRCS): Remove	egg-util.el.  Added egg-x0213.el.
-	(ITSSRCS): Added its/greek.el
-	its/greek.elc: Depends on its-keydef.elc.
+	* configure.ac: Rename.
 
-2002-08-23  NIIBE Yutaka  <gniibe@m17n.org>
+	* check-jisx0213.el: Removed from repo and distribution..
+	* egg-x0213.el: Removed from repo and distribution.
+	* jisx0213.el: Removed from repo and distribution.
 
-	* AUTHORS (NIIBE Yutaka): Updated.
-	* egg-mlh.el: Update e-mail address.
+	* egg.el (egg): It's under leim group.
+	(egg-mode): Replace obsolete variable
+	inactivate-current-input-method-function.
+	(egg-exit-from-minibuffer): Replace obsolete function
+	inactivate-input-method.
 
-	* leim-list.el: Removed eval-when contstuct.  Reoved "loading
-	another" feature.
-	(egg-activate-anthy): Added.
+	* egg-sim.el (make-non-iso2022-code-table-file)
+	(make-iso2022-94char-code-table-file)
+	(make-iso2022-96char-code-table-file, make-euc-code-table-file):
+	Remove format which is not needed.
 
-2002-08-23  Katsumi Yamaoka  <yamaoka@jpl.org>, NIIBE Yutaka  <gniibe@m17n.org>
+	* menudiag.el (menudiag-choose-item-internal): Use
+	choose-completion.
 
-	* egg-util.el: Removed.
+	* egg/canna.el (canna-word-delete-regist): Fix lambda.
 
-2002-08-08  NIIBE Yutaka  <gniibe@m17n.org>
+	* egg-mlh.el (mlh-zenkaku-white, mlh-white-space): Use
+	string-to-number.
+	* menudiag.el (menudiag-choose-item-internal): Likewise.
 
-	* Makefile.in (EGGSRCS): Added anthy.el and anthyipc.el
-	(srcdir, top_srcdir, VPATH): Added.
-	(DEPS): Use top_srcdir.
+	* its.el (its-mode-help-command): Use called-interactively-p.
+	* egg-cnv.el (egg-help-command): Likewise.
 
-	Added ANTHY support.
-	* egg/anthy.el egg/anthyipc.el: New files.
-	* leim-list.el: Added anthy.
+	* egg-com.el: Remove support of fixed-euc-kr, fixed-euc-py-cn,
+	fixed-euc-zy-cn, fixed-euc-py-tw, fixed-euc-zy-tw and egg-binary.
+	(comm-unpack-binary-data): Use 'binary for decode-coding-string.
 
-2002-08-02  SAITO Takuya <reed@lily.freemail.ne.jp>
+	* egg/anthy.el (anthy-new-environment): Use
+	set-process-query-on-exit-flag.
+	* egg/sj3.el (sj3-open): Likewise.
+	* egg/canna.el (canna-open): Likewise.
+	Use string-to-number.
+	* egg/wnn.el (wnn-open): Likewise.
 
-	* its.el (its-previous-line): point-mim -> point-min (typo)
+2014-10-24  Niibe Yutaka  <gniibe@fsij.org>
 
-2002-07-20  SAITO Takuya <reed@lily.freemail.ne.jp>
-
-	* egg.el (egg-activate-keymap-after-command): set-buffer to
-	killed buffer.
-
-2002-05-08  Katsumi Yamaoka  <yamaoka@jpl.org> (cf. [mule-ja:08306])
-
-	* its.el (its-next-line, its-previous-line): New commands;
-	substitute key definitions for `next-line' and `previous-line'
-	with them in `its-mode-map'.
-
+	* egg-com.el (fixed-euc-jp): Fix for modern Emacs.
+	Thanks to Handa-san.

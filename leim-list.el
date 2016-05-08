@@ -58,47 +58,10 @@
  "$B$"(B.."  "Romaji -> Hiragana -> Kanji&Kana"
  'its-select-hiragana)
 
-(register-input-method
- "chinese-gb-egg-wnn-py" "Chinese-GB" 'egg-activate-wnn
- "$AF4(BG"  "Pinyin -> Simplified Hanzi"
- 'its-select-pinyin-cn)
-
-(register-input-method
- "chinese-gb-egg-wnn-zy" "Chinese-GB" 'egg-activate-wnn
- "$AW"(BG"  "Zhunyin -> Simplified Hanzi"
- 'its-select-zhuyin-cn)
-
-(register-input-method
- "chinese-gb-egg-wnn-qm" "Chinese-GB" 'egg-activate-wnn
- "$AG.(B"  "QianMa Simplified Hanzi inputmethod"
- 'its-select-qianma)
-
-(register-input-method
- "chinese-gb-egg-wnn-wb" "Chinese-GB" 'egg-activate-wnn
- "$ANe(B"  "WuBi Simplified Hanzi inputmethod"
- 'its-select-wubi)
-
-(register-input-method
- "chinese-cns-egg-wnn-py" "Chinese-CNS" 'egg-activate-wnn
- "$(GQ;(BC"  "Pinyin -> Traditional Hanzi"
- 'its-select-pinyin-tw)
-
-(register-input-method
- "chinese-cns-egg-wnn-zy" "Chinese-CNS" 'egg-activate-wnn
- "$(GNC(BC"  "Zhunyin -> Traditional Hanzi"
- 'its-select-zhuyin-tw)
-
-(register-input-method
- "korean-egg-wnn" "Korean" 'egg-activate-wnn
- "$(CGQ(B"  "Hangul -> Hanja"
- 'its-select-hangul)
 
 (autoload 'egg-mode "egg" "Toggle EGG  mode." t)
 
-(set-language-info "Japanese"    'input-method "japanese-egg-wnn")
-(set-language-info "Chinese-GB"  'input-method "chinese-gb-egg-wnn-py")
-(set-language-info "Chinese-CNS" 'input-method "chinese-cns-egg-wnn-py")
-(set-language-info "Korean"      'input-method "korean-egg-wnn")
+(set-language-info "Japanese"    'input-method "japanese-egg-anthy")
 
 (defgroup leim nil 
   "LEIM stands for Libraries of Emacs Input Methods."

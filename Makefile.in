@@ -10,6 +10,7 @@ SHELL	= @SHELL@
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
+datarootdir = @datarootdir@
 VPATH = @srcdir@
 
 #------------------------------------------------
@@ -55,7 +56,6 @@ TOPSRCS	= \
 	menudiag.el \
 	its.el \
 	its-keydef.el \
-	leim-list.el \
 
 #
 EGGSRCS	= \
@@ -64,18 +64,15 @@ EGGSRCS	= \
 	egg/wnnrpc.el egg/wnn.el \
 	egg/anthyipc.el egg/anthy.el
 
-#
-AYNU	= @HAVE_JISX0213@ its/aynu.el
-
 ITSSRCS	= \
 	its/ascii.el \
+	its/aynu.el  \
 	its/bixing.el \
 	its/erpin.el \
 	its/greek.el \
 	its/hankata.el \
 	its/hira.el \
 	its/jeonkak.el \
-        its/greek.el \
 	its/pinyin.el \
 	its/hangul.el \
 	its/kata.el \
@@ -83,8 +80,7 @@ ITSSRCS	= \
 	its/quanjiao.el \
 	its/zenkaku.el \
 	its/zhuyin.el \
-	its/jiskana.el \
-	${AYNU}
+	its/jiskana.el
 
 #
 ELCS	= ${SRCS:.el=.elc}

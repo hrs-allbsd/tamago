@@ -1,8 +1,33 @@
 ;;; egg-cnv.el --- Conversion Backend in Egg Input Method Architecture
 
-;; Copyright (C) 1999,2000 PFU LIMITED
+;;;;;;;;;;;;;;;; About copyright notice ;;;;;;;;;;;;;;;;
+;;;
+;;; This code was originally written by NIIBE Yutaka in 1997 and 1998.
+;;; It was plan to assign copyright to FSF and merged into GNU Emacs.
 
-;; Author: NIIBE Yutaka <gniibe@chroot.org>
+;;; Based on my own work, the feature of mixture of multiple languages
+;;; support was added, the feature was written by an employee of PFU
+;;; LIMITED.  Because of that, it seems for me that a maintainer (at
+;;; that time) added the copyright notice like:
+
+	;; Copyright (C) 1999,2000 PFU LIMITED
+
+;;; But, I don't agree that this file is entirely copyrighted by PFU
+;;; LIMITED.  It's only for some parts, at maximum.
+;;;
+;;; I never assigned my code to PFU LIMITED.
+;;;
+;;; Although the copyright notice was wrong or not that accurate at
+;;; least, everyone in the project(including the maintainer and PFU
+;;; LIMITED) agreed to distribute the code under GPLv2+.
+;;;
+;;; Please don't do that again.  Please agree and prepare your
+;;; assignment to FSF when you develop something for Egg v4.
+;;;
+;;; -- gniibe 2014-10-31
+;;;;;;;;;;;;; 
+
+;; Author: NIIBE Yutaka <gniibe@fsij.org>
 ;;         KATAYAMA Yoshio <kate@pfu.co.jp>
 
 ;; Maintainer: TOMURA Satoru <tomura@etl.go.jp>
@@ -198,9 +223,6 @@ mode, if non-NIL."
 
 (defsubst egg-get-major-continue (p &optional object)
   (get-text-property p 'egg-major-continue object))
-
-(defsubst egg-get-char-size (p &optional object)
-  (get-text-property p 'egg-char-size object))
 
 ;; <bunsetsu-info> ::= ( <backend> . <backend-dependent-info> )
 
@@ -984,18 +1006,6 @@ mode, if non-NIL."
       (egg-set-candsel-info new-b major)
       (egg-insert-new-bunsetsu b (caddr new-b) new-b))))
 
-(defun egg-separate-characters (str)
-  (let* ((v (egg-string-to-vector str))
-	 (len (length v))
-	 (i 0) (j 0) m n (nchar 0))
-    (while (< i len)
-      (if (setq n (egg-chinese-syllable str j))
-	  (setq m (egg-chars-in-period str j n))
-	(setq m 1 n (egg-char-bytes (aref v i))))
-      (put-text-property j (+ j n) 'egg-char-size n str)
-      (setq nchar (1+ nchar) i (+ i m) j (+ j n)))
-    nchar))
-
 (defun egg-enlarge-bunsetsu-major (n)
   (interactive "p")
   (egg-enlarge-bunsetsu-internal n t))
@@ -1013,36 +1023,35 @@ mode, if non-NIL."
   (egg-enlarge-bunsetsu-internal (- n) nil))
 
 (defun egg-enlarge-bunsetsu-internal (n major)
-  (let ((inhibit-read-only t)
-	b prev-b next-b new-b s1 s1len s2 s2len nchar i last end beep)
-    (if major
-	(setq b (egg-get-major-bunsetsu (point))
-	      prev-b (egg-get-previous-major-bunsetsu (point)))
-      (setq b (list (egg-get-bunsetsu-info (point)))
-	    prev-b (egg-get-previous-bunsetsu (point))
-	    prev-b (and prev-b (list prev-b))))
-    (setq end (egg-next-bunsetsu-point (point) (length b))
-	  last (egg-get-bunsetsu-last (1- end)))
-    (while (null last)
-      (setq next-b (cons (egg-get-bunsetsu-info end) next-b)
-	    last (egg-get-bunsetsu-last end)
-	    end (egg-next-bunsetsu-point end)))
-    (setq next-b (nreverse next-b)
-	  s1 (egg-get-major-bunsetsu-source b)
+  (let* ((inhibit-read-only t)
+	 (b (if major
+		(egg-get-major-bunsetsu (point))
+	      (list (egg-get-bunsetsu-info (point)))))
+	 (prev-b (if major
+		     (egg-get-previous-major-bunsetsu (point))
+		   (let ((pb (egg-get-previous-bunsetsu (point))))
+		     (and pb (list pb)))))
+	 (s1 (egg-get-major-bunsetsu-source b))
+	 (s1len (length s1))
+	 s2 s2len
+	 next-b new-b nchar i beep)
+    (let* ((end (egg-next-bunsetsu-point (point) (length b)))
+	   (last (egg-get-bunsetsu-last (1- end))))
+      (while (null last)
+	(setq next-b (cons (egg-get-bunsetsu-info end) next-b)
+	      last (egg-get-bunsetsu-last end)
+	      end (egg-next-bunsetsu-point end)))
+      (setq next-b (nreverse next-b)))
+    (setq n (+ n s1len)
 	  s2 (concat s1 (egg-get-major-bunsetsu-source next-b))
-	  s1len (egg-separate-characters s1)
-	  s2len (egg-separate-characters s2)
-	  n (+ n s1len))
+	  s2len (length s2))
     (cond
      ((<= n 0)
-      (setq beep t nchar (and (/= s1len 1) (egg-get-char-size 0 s1))))
+      (setq beep t nchar (and (/= s1len 1) (length s1))))
      ((> n s2len)
       (setq beep t nchar (and (/= s2len s1len) (length s2))))
      (t
-      (setq nchar 0)
-      (while (> n 0)
-	(setq nchar (+ nchar (egg-get-char-size nchar s2))
-	      n (1- n)))))
+      (setq nchar n)))
     (when nchar
       (setq next-b (nconc b next-b)
 	    i (length (egg-get-bunsetsu-source (car next-b))))
@@ -1245,7 +1254,8 @@ mode, if non-NIL."
   (with-output-to-temp-buffer "*Help*"
     (princ "EGG Conversion mode:\n")
     (princ (documentation 'egg-conversion-mode))
-    (help-setup-xref (cons #'help-xref-mode (current-buffer)) (interactive-p))))
+    (help-setup-xref (cons #'help-xref-mode (current-buffer))
+		     (called-interactively-p 'any))))
 
 (provide 'egg-cnv)
 

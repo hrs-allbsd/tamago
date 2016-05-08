@@ -503,7 +503,6 @@
   (make-local-variable 'inhibit-read-only)
   (setq buffer-read-only t
 	inhibit-read-only nil)
-  (make-local-hook 'post-command-hook)
   (add-hook 'post-command-hook 'menudiag-selection-align-to-item nil t)
   (use-local-map menudiag-selection-map)
   (setq mode-name "Menudiag Selection")
@@ -595,10 +594,10 @@
       (set-buffer sel-buf)
       (setq completion-reference-buffer tmp-buf)
       (if event
-	  (mouse-choose-completion event)
+	  (choose-completion event)
 	(choose-completion))
       (set-buffer tmp-buf)
-      (setq n (string-to-int (buffer-string))))
+      (setq n (string-to-number (buffer-string))))
     (pop-to-buffer org-buf)
     (while (and item-list (>= n (length (car item-list))))
       (setq l (1+ l)

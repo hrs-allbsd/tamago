@@ -33,7 +33,6 @@
 ;;; Code:
 
 (require 'egg)
-(require 'egg-edep)
 
 (defgroup wnn nil
   "Wnn interface for Tamago 4."

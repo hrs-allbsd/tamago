@@ -32,7 +32,6 @@
 ;;; Code:
 
 (require 'egg)
-(require 'egg-edep)
 
 (defgroup anthy nil
   "Anthy interface for Tamago 4."

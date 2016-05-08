@@ -31,7 +31,6 @@
 ;;; Code:
 
 (require 'egg)
-(require 'egg-edep)
 
 (defgroup canna nil
   "CANNA interface for Tamago 4."

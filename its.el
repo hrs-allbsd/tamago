@@ -34,8 +34,6 @@
 (eval-when-compile
   (require 'cl))
 
-(require 'egg-edep)
-
 (defgroup its nil
   "Input Translation System of Tamago 4."
   :group 'egg)

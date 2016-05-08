@@ -30,13 +30,11 @@
 
 ;;; Code:
 
-(defconst egg-version "4.1.1"
+(defconst egg-version "4.1.2"
   "Version number for this version of Tamago.")
 
 (eval-when-compile
   (require 'cl))
-
-(require 'egg-edep)
 
 (autoload 'egg-simple-input-method "egg-sim"
   "simple input method for Tamago 4." t)

@@ -1,5 +1,13 @@
 2014-11-05  Niibe Yutaka  <gniibe@fsij.org>
 
+	* egg.el (egg-version): 4.1.2.
+
+	* egg.el, its.el (egg-edep): Don't require.
+	* egg-cnv.el, egg-com.el: Likewise.
+	* egg/anthy.el, egg/sj3.el, egg/wnn.el, egg/canna.el: Likewise.
+
+2014-11-05  Niibe Yutaka  <gniibe@fsij.org>
+
 	* egg.el (egg-version): 4.1.1.
 
 	* Makefile.in (INITELS): Remove eggrc.

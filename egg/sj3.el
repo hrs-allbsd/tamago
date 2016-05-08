@@ -32,7 +32,6 @@
 ;;; Code:
 
 (require 'egg)
-(require 'egg-edep)
 
 (defgroup sj3 nil
   "SJ3 interface for Tamago 4."

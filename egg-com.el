@@ -32,8 +32,6 @@
 ;;; Code:
 
 
-(require 'egg-edep)
-
 (defvar egg-fixed-euc '(fixed-euc-jp))
 (make-variable-buffer-local 'egg-fixed-euc)
 (put 'egg-fixed-euc 'permanent-local t)

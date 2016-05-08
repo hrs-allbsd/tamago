@@ -56,8 +56,6 @@
 
 ;;; Code:
 
-(require 'egg-edep)
-
 (defgroup egg-conv nil
   "Conversion Backend Interface of Tamago 4."
   :group 'egg)

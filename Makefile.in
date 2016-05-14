@@ -16,7 +16,7 @@ VPATH = @srcdir@
 #  Configuration parameters
 #------------------------------------------------
 # emacs you use
-EMACS	= emacs
+EMACS	= @EMACS_CMD@
 # emacs lisp installation directory
 lispdir	= @lispdir@
 #------------------------------------------------

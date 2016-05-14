@@ -587,6 +587,7 @@ LIBOBJS
 lispdir
 HAVE_GETADDRINFO_UNIX
 HAVE_JISX0213
+EMACS_CMD
 SET_MAKE
 INSTALL_DATA
 INSTALL_SCRIPT
@@ -632,6 +633,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+with_emacs_cmd
 enable_getaddrinfo_unix
 with_lispdir
 '
@@ -1251,6 +1253,7 @@ Optional Features:
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-emacs-cmd=EMACS  Specify emacs command (emacs)
   --with-lispdir=LISPDIR  Installation directory for Emacs Lisp
                           (datadir/emacs/site-lisp)
 
@@ -1837,19 +1840,34 @@ $as_echo "no" >&6; }
 fi
 
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking emacs command" >&5
+$as_echo_n "checking emacs command... " >&6; }
+
+# Check whether --with-emacs-cmd was given.
+if test "${with_emacs_cmd+set}" = set; then :
+  withval=$with_emacs_cmd; EMACS_CMD=${withval}
+else
+  EMACS_CMD=emacs
+fi
+
+
+echo "${EMACS_CMD}"
+
 
 
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking jisx0213" >&5
 $as_echo_n "checking jisx0213... " >&6; }
-if emacs -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
+if ${EMACS_CMD} -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
   echo "yes"; HAVE_JISX0213=""
 else
   echo "no"; HAVE_JISX0213="# "
 fi
 
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking getaddrinfo Unix domain support" >&5
+$as_echo_n "checking getaddrinfo Unix domain support... " >&6; }
 # Check whether --enable-getaddrinfo-unix was given.
 if test "${enable_getaddrinfo_unix+set}" = set; then :
   enableval=$enable_getaddrinfo_unix; HAVE_GETADDRINFO_UNIX="-DHAVE_GETADDRINFO_UNIX"
@@ -1858,7 +1876,14 @@ else
 fi
 
 
+if test X"${HAVE_GETADDRINFO_UNIX}" != X; then
+    echo "no"
+else
+    echo "yes"
+fi
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking lispdir" >&5
+$as_echo_n "checking lispdir... " >&6; }
 
 # Check whether --with-lispdir was given.
 if test "${with_lispdir+set}" = set; then :
@@ -1868,6 +1893,7 @@ else
 fi
 
 
+echo "$lispdir"
 
 ac_config_files="$ac_config_files Makefile"
 

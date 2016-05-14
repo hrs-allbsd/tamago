@@ -40,13 +40,11 @@
                    (t (funcall loop (cdr r))))))))
     (funcall loop mark-ring)))
 
-(eval-when-compile
-  ;;; inactivate-input-method has been replaced with deactivate-input-method.
-  (defalias 'egg-deactivate-input-method
-    (if (fboundp 'deactivate-input-method)
-      'deactivate-input-method
-    'inactivate-input-method))
-)
+;;; inactivate-input-method has been replaced with deactivate-input-method.
+(defalias 'egg-deactivate-input-method
+  (if (fboundp 'deactivate-input-method)
+    'deactivate-input-method
+  'inactivate-input-method))
 
 (if (and (fboundp 'set-buffer-multibyte)
 	 (subrp (symbol-function 'set-buffer-multibyte)))

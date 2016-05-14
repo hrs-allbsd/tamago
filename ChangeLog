@@ -1,3 +1,20 @@
+2016-05-14  Hiroki Sato <hrs@allbsd.org>
+	* Makefile.in: Add EMACS_CMD, datadir, datarootdir.  Use
+	${INSTALL_DATA} for multiple files at once.  Install gzip'd .el
+	files.
+	* configure: Regenerated.
+	* configure.ac: Add --with-emacs-cmd, --enable-getaddrinfo-unix,
+	and --with-lispdir.
+	* configure.in: Renamed with configure.ac.
+	* debian/*: Removed.
+	* egg-edep.el, egg-cnv.el: Add (egg-buffer-has-markers-at) since
+	(buffer-has-markers-at) has been marked as obsolete since 24.3.
+	* egg-com.el: Part of (make-coding-system) was converted because
+	it has been marked as obsolete.
+	* egg-edep.el: Use defalias for egg-deactivate-input-method.
+	* egg-mlh.el: Replace string-to-int with string-to-number.
+	* egg.el: Add custom group.
+
 2013-05-05  Hiroki Sato <hrs@allbsd.org>
 
 	* egg.el: Revert deactivate-current-input-method-function and

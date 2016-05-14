@@ -153,7 +153,7 @@
 		    (cons (match-string-no-properties 1) (match-string-no-properties 2))
 		  (end-of-line))
 	      (egg-error "protocol error: %s" line)))))))))
-   
+
 (defsubst anthyipc-read-string-type2 ()
   (prog1
       (buffer-substring-no-properties (point) (line-end-position))

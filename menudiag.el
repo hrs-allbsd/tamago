@@ -245,7 +245,7 @@
    menudiag-show-all       all
    menudiag-minibuf-prompt (cadr menu)
    menudiag-current-items  (car (cddr menu))
-   menudiag-selection-list (menudiag-make-selection-list 
+   menudiag-selection-list (menudiag-make-selection-list
 			    (car (cddr menu))
 			    (- (window-width (minibuffer-window))
 			       (string-width (cadr menu)))))
@@ -265,7 +265,7 @@
     (mapconcat
      (function (lambda (item)
 		 (setq i (1+ i))
-		 (format "  %c.%s" (menudiag-item-num-to-char i) 
+		 (format "  %c.%s" (menudiag-item-num-to-char i)
                            (menudiag-item-string item))))
      item-list "")))
 

@@ -921,7 +921,7 @@ before remove and create new file."
                  (aref v  0) (aref v  1) (aref v  2) (aref v  3) (aref v  4)
                  (aref v  5) (aref v  6) (aref v  7) (aref v  8) (aref v  9)
                  (aref v 10) (aref v 11) (aref v 12) (aref v 13) (aref v 14)
-                 (aref v 15) (aref v 16) (aref v 17) 
+                 (aref v 15) (aref v 16) (aref v 17)
 		 ;; (aref v 18)
 		 ;; (aref v 19)
                  ;; (aref v 20)

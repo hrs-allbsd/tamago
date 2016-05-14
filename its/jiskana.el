@@ -46,7 +46,7 @@
     t)
   "*Enable Zenkaku alphabet")
 
-(defcustom its-jiskana-period "。" 
+(defcustom its-jiskana-period "。"
   "* >を入力したときの句点の文字: \"。\"  \". \" \"．\""
   :group 'jiskana :type 'string)
 
@@ -183,7 +183,7 @@
   (its-defrule   "^["   "ぺ")
   (its-defrule   "-["   "ぽ")
 
-  ;;; 
+  ;;;
   ;; や行
   (its-defrule   "'"   "ゃ")
   (its-defrule   "("   "ゅ")

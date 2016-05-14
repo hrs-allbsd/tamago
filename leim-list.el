@@ -100,11 +100,11 @@
 (set-language-info "Chinese-CNS" 'input-method "chinese-cns-egg-wnn-py")
 (set-language-info "Korean"      'input-method "korean-egg-wnn")
 
-(defgroup leim nil 
+(defgroup leim nil
   "LEIM stands for Libraries of Emacs Input Methods."
   :group 'mule)
 
-(defgroup egg nil "" 
+(defgroup egg nil ""
   :group 'leim :load "egg")
 
 (defgroup anthy nil ""
@@ -119,7 +119,7 @@
 (defgroup canna nil ""
   :group 'egg :load "egg/canna")
 
-(defgroup its nil "" 
+(defgroup its nil ""
   :group 'egg :load "its")
 
 (defgroup hira nil ""

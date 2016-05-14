@@ -121,7 +121,7 @@
 		  ",1e(B" ",1"(B" ",1F" ",1G" ",1!(B" ",1#(B"
 		  ",1b(B" ",1%(B" ",1&(B" ",1g(B" ",1$(B" ",1'(B"
 		  "e" ",1i(B" ",1k(B" ",1((B" ",1h(B" ",1)(B"
-		  ",1j(B" ",1*(B" ",1,(B" ",1-(B" ",1+(B" ",1.(B" 
+		  ",1j(B" ",1*(B" ",1,(B" ",1-(B" ",1+(B" ",1.(B"
 		  "i" ",1m(B" ",1o(B" ",1n(B" ",1l(B" ",18(B"
 		  "o" ",1s(B" ",1v(B" ",1u(B" ",1r(B" ",1w(B"
 		  ",1t(B" ",1/(B" ",11(B" ",12(B" ",10(B" ",15(B"
@@ -131,25 +131,25 @@
 		  "y" ",1}(B" ",1V" ",1[(B" ",1O" ",1\(B"
 
 		  "A" ",2`(B" ",2d(B" ",2c(B" ",2a(B" ",2U"
-		  ",2e(B" ",2"(B" ",2F" ",2G" ",2!(B" ",2#(B" 
-		  ",2b(B" ",2%(B" ",2&(B" ",2g(B" ",2$(B" ",2'(B" 
-		  "E" ",2h(B" ",2k(B" ",2((B" ",2i(B" ",2)(B" 
-		  ",2j(B" ",2+(B" ",2,(B" ",2-(B" ",2*(B" ",2.(B" 
+		  ",2e(B" ",2"(B" ",2F" ",2G" ",2!(B" ",2#(B"
+		  ",2b(B" ",2%(B" ",2&(B" ",2g(B" ",2$(B" ",2'(B"
+		  "E" ",2h(B" ",2k(B" ",2((B" ",2i(B" ",2)(B"
+		  ",2j(B" ",2+(B" ",2,(B" ",2-(B" ",2*(B" ",2.(B"
 		  "I" ",2l(B" ",2o(B" ",2n(B" ",2m(B" ",28(B"
 		  "O" ",2r(B" ",2v(B" ",2u(B" ",2s(B" ",2w(B"
 		  ",2t(B" ",20(B" ",21(B" ",22(B" ",2/(B" ",25(B"
-		  ",2=(B" ",26(B" ",27(B" ",2^(B" ",2>(B" ",2~(B" 
-		  "U" ",2y(B" ",2|(B" ",2{(B" ",2z(B" ",2x(B" 
+		  ",2=(B" ",26(B" ",27(B" ",2^(B" ",2>(B" ",2~(B"
+		  "U" ",2y(B" ",2|(B" ",2{(B" ",2z(B" ",2x(B"
 		  ",2_(B" ",2W" ",2X" ",2f(B" ",2Q" ",2q(B"
-		  "Y" ",2O" ",2V" ",2[(B" ",2}(B" ",2\(B" 
+		  "Y" ",2O" ",2V" ",2[(B" ",2}(B" ",2\(B"
 
 		  ",2p(B" ",1p(B"
 		  )))
 
 	  ("VISCII1.1(lower-case)" .
-	   (menu "VISCII1.1 lower-case:" 
+	   (menu "VISCII1.1 lower-case:"
 		 ,(make-char-list 'vietnamese-viscii-lower)))
-	  ("VISCII1.1(upper-case)" . 
+	  ("VISCII1.1(upper-case)" .
 	   (menu "VISCII1.1 upper-case:"
 		 ,(make-char-list 'vietnamese-viscii-upper))))))
 
@@ -178,26 +178,26 @@
 	   (menu "CNS 11643-7:" ,(make-char-list 'chinese-cns11643-7))))))
 
 (defvar egg-sim-chinese-gb-menu
-  `(menu "GB 2312:" 
-	 (("All" . 
+  `(menu "GB 2312:"
+	 (("All" .
 	   (menu "GB 2312:" ,(make-char-list 'chinese-gb2312)))
-	  ("Symbols" . 
+	  ("Symbols" .
 	   (menu "GB2312/1:" ,(make-char-list 'chinese-gb2312 1 1)))
-	  ("Numbers" . 
+	  ("Numbers" .
 	   (menu "GB2312/2:" ,(make-char-list 'chinese-gb2312 2 2)))
-	  ("Fullwidth ASCII" . 
+	  ("Fullwidth ASCII" .
 	   (menu "GB2312/3:" ,(make-char-list 'chinese-gb2312 3 3)))
 	  ("Hiragana" .
 	   (menu "GB2312/4:" ,(make-char-list 'chinese-gb2312 4 4)))
-	  ("Katanaka" . 
+	  ("Katanaka" .
 	   (menu "GB2312/5:" ,(make-char-list 'chinese-gb2312 5 5)))
-	  ("Greek" . 
+	  ("Greek" .
 	   (menu "GB2312/6:" ,(make-char-list 'chinese-gb2312 6 6)))
-	  ("Cyrillic" . 
+	  ("Cyrillic" .
 	   (menu "GB2312/7:" ,(make-char-list 'chinese-gb2312 7 7)))
-	  ("Pinyin/Bopomofo" . 
+	  ("Pinyin/Bopomofo" .
 	   (menu "GB2312/8:" ,(make-char-list 'chinese-gb2312 8 8)))
-	  ("Box Drawings" . 
+	  ("Box Drawings" .
 	   (menu "GB2312/9:" ,(make-char-list 'chinese-gb2312 9 9)))
 	  )))
 
@@ -236,10 +236,10 @@
 	  ("Hanja" .
 	   (menu "KSC 5601/42-93:" , (make-char-list 'korean-ksc5601 42 93))))))
 
-(defvar egg-sim-japanese-menu 
+(defvar egg-sim-japanese-menu
   `(menu "Japanese:"
 	 (("JISX0201" .
-	   (menu "JIS X 0201:" 
+	   (menu "JIS X 0201:"
 	   ,(append (make-char-list 'latin-jisx0201)
 		    (make-char-list 'katakana-jisx0201))))
 	  ("JISX0208" .
@@ -249,27 +249,27 @@
 	  ("JISX0208/0212" .
 	   (menu "記号入力:"
 		 (("JIS入力" . japanese-jisx0208)
-		  ("記号"     . 
+		  ("記号"     .
 		   (menu "記号:"     , (make-char-list 'japanese-jisx0208 1 2)))
-		  ("英数字"   . 
+		  ("英数字"   .
 		   (menu "英数字:"   , (make-char-list 'japanese-jisx0208 3 3)))
-		  ("ひらがな" . 
+		  ("ひらがな" .
 		   (menu "ひらがな:" , (make-char-list 'japanese-jisx0208 4 4)))
-		  ("カタカナ" . 
+		  ("カタカナ" .
 		   (menu "カタカナ:" , (make-char-list 'japanese-jisx0208 5 5)))
-		  ("ギリシャ文字" . 
+		  ("ギリシャ文字" .
 		   (menu "ギリシャ文字:" , (make-char-list 'japanese-jisx0208 6 6)))
-		  ("キリル文字" . 
+		  ("キリル文字" .
 		   (menu "キリル文字:" , (make-char-list 'japanese-jisx0208 7 7)))
-		  ("罫線" . 
+		  ("罫線" .
 		   (menu "罫線:" , (make-char-list 'japanese-jisx0208 8 8)))
 			  ;;;"部首入力"  (bushyu-input)
                           ;;; "画数入力" (kakusuu-input)
-		  ("第一水準" . 
+		  ("第一水準" .
 		   (menu "第一水準:" , (make-char-list 'japanese-jisx0208 16 47)))
-		  ("第二水準" . 
+		  ("第二水準" .
 		   (menu "第二水準:" , (make-char-list 'japanese-jisx0208 48 84)))
-		  ("補助漢字" . 
+		  ("補助漢字" .
 		   (menu "補助漢字:" , (make-char-list 'japanese-jisx0212 2 77)))))))))
 
 (defvar egg-sim-ipa-menu
@@ -304,25 +304,25 @@
     ("Hebrew"   . , egg-sim-hebrew-menu)
     ("Japanese" . , egg-sim-japanese-menu)
     ("Korean"   . , egg-sim-korean-menu)
-    ("Latin" . 
+    ("Latin" .
      (menu "Latin:"
 	   (("Latin-1" . , egg-sim-latin-1-menu)
 	    ("Latin-2" . , egg-sim-latin-2-menu)
 	    ("Latin-3" . , egg-sim-latin-3-menu)
 	    ("Latin-4" . , egg-sim-latin-4-menu)
 	    ("Latin-5" . , egg-sim-latin-5-menu))))
-    ("Thai/Lao" . 
+    ("Thai/Lao" .
      (menu "Thai/Lao:"
 	   (("Thai" . , egg-sim-thai-menu)
 	    ("Lao"  . , egg-sim-lao-menu))))
     ("Vietnamese" . , egg-sim-vietnamese-menu)
-    ("Phonetic code" . 
+    ("Phonetic code" .
      (menu "Phonetic code:"
 	   (("SISHENG" . , egg-sisheng-menu)
 	    ("IPA" .  , egg-sim-ipa-menu))))
     ))
 
-(defvar egg-language-environment-alist 
+(defvar egg-language-environment-alist
   `(("ASCII"         . , egg-sim-ascii-menu)
     ("Chinese-BIG5"  . , egg-sim-chinese-big5-menu)
     ("Chinese-CNS"   . , egg-sim-chinese-cns-menu)
@@ -370,7 +370,7 @@
 					    (charset-description result)))))))
 
 (defun egg-simple-input-menu ()
-  (let ((menu (cdr-safe (assoc current-language-environment 
+  (let ((menu (cdr-safe (assoc current-language-environment
 			       egg-language-environment-alist))))
     (if menu
 	(menudiag-select
@@ -485,7 +485,7 @@
 		  c (+ c 16)))
 	  (insert (format "\n")))
 	(setq i (1+ i))))))
-  
+
 (defun make-iso2022-96char-code-table-file (name)
   (with-temp-file name
     (set-buffer-multibyte nil)

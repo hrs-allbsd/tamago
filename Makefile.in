@@ -103,11 +103,11 @@ all: ${ELCS}
 .el.elc:
 	${EMACS} ${BATCHFLAGS} ${DEPS} -f batch-byte-compile $<
 
-clean: 
+clean:
 	rm -f ${ELCS} *~ */*~ \#* .\#* */\#* */.\#*
 
-distclean: 
-	rm -f ${ELCS} config.* Makefile 
+distclean:
+	rm -f ${ELCS} config.* Makefile
 
 install: install-site
 

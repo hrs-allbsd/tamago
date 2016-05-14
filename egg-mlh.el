@@ -199,7 +199,7 @@ Or else, execute command that space-bar invokes usually."
   (goto-char end-marker)
   (backward-delete-char 2)
   (setq henkan-begin (point)))
-  
+
 (defun mlh-no-conversion ()
   (forward-char -1)
   (skip-chars-backward "\041-\056\060-\176")
@@ -275,7 +275,7 @@ CHAR.  MNEMONIC             CONVERSION SCHEME
             (let (scheme)
               (backward-char 1)
               (setq char (preceding-char))
-              (cond 
+              (cond
                ((setq scheme (assq char mlh-conversion-scheme-table))
                 (funcall (cdr scheme)))
                (t

@@ -43,7 +43,7 @@
       [2 94 2 0 ?P 0 "JISX0213-2" "JISX0213-2" "JISX0213-2 (Japanese)"]))
 
 ;; Mule-UCS is required to adopt fixed-euc-jisx0213.
-(or 
+(or
  noninteractive ;; unnecessary in non-interactive mode.
  (unless (or (require 'jisx0213)
              (get 'jisx0213-to-jisx0208/0212 'translation-table))
@@ -104,7 +104,7 @@
               (repeat)))
          (repeat)))))
 
-   (make-coding-system 
+   (make-coding-system
     'fixed-euc-jisx0213 4 ?W "Coding System for fixed EUC Japanese"
     (cons ccl-decode-fixed-euc-jisx0213 ccl-encode-fixed-euc-jisx0213))))
 

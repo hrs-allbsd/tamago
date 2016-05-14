@@ -52,7 +52,7 @@
   "*Enable \"nn\" input for \"ん\" "
   :group 'hira :type 'boolean)
 
-(defcustom its-hira-period "。" 
+(defcustom its-hira-period "。"
   "* .(ピリオド)を入力したときの句点の文字: \"。\"  \". \" \"．\""
   :group 'hira :type 'string)
 

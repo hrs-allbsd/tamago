@@ -101,7 +101,7 @@
 
 (if (and (fboundp 'make-coding-system)
          (null (get 'make-coding-system 'byte-obsolete-info)))
-;; since Emacs 23.1, make-coding-system has been marked as obsolete. 
+;; since Emacs 23.1, make-coding-system has been marked as obsolete.
     (eval-and-compile
 	(define-ccl-program ccl-decode-fixed-euc-jp
 	  `(2
@@ -158,7 +158,7 @@
 			    (cons ccl-decode-fixed-euc-jp ccl-encode-fixed-euc-jp))
 	)
     (eval-and-compile
-    ;; since Emacs 23.1, make-coding-system has been marked as obsolete. 
+    ;; since Emacs 23.1, make-coding-system has been marked as obsolete.
     ;; From Handa-san. [mule-ja : No.09414]
     (define-charset 'fixed-euc-jp
       "Fixed EUC Japanese"
@@ -179,7 +179,7 @@
 
 (if (and (fboundp 'make-coding-system)
          (null (get 'make-coding-system 'byte-obsolete-info)))
-;; since Emacs 23.1, make-coding-system has been marked as obsolete. 
+;; since Emacs 23.1, make-coding-system has been marked as obsolete.
     (eval-and-compile
 (define-ccl-program ccl-decode-fixed-euc-kr
   `(2
@@ -210,7 +210,7 @@
 (make-coding-system 'fixed-euc-kr 4 ?W "Coding System for fixed EUC Korean"
 		    (cons ccl-decode-fixed-euc-kr ccl-encode-fixed-euc-kr)))
     (eval-and-compile
-    ;; since Emacs 23.1, make-coding-system has been marked as obsolete. 
+    ;; since Emacs 23.1, make-coding-system has been marked as obsolete.
     (define-charset 'fixed-euc-kr
       "Fixed EUC Korean"
       :dimension 2
@@ -441,7 +441,7 @@
    ?\x0000 ?\x8000 ?\x0000 ?\x8000 ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x0000
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x8000 ?\x0000 ?\x8000 ?\x8000 ?\x0000 ?\x0000
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x8000 ?\x0000
-   ?\x0000 
+   ?\x0000
    ;; ShengMu Q
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000
    ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000
@@ -484,7 +484,7 @@
    ?\x8000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x14a4 ?\x0000 ?\x0000
    ?\x14a7 ?\x0000 ?\x14a5 ?\x0000 ?\x14a8 ?\x0000 ?\x949b ?\x94a0 ?\x8000 ?\x949e
    ?\x94a2
-   ;; ShengMu Y 
+   ;; ShengMu Y
    ?\x958b ?\x8000 ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x0090 ?\x0000 ?\x9591 ?\x9592
    ?\x0000 ?\x1580 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x1588 ?\x1589 ?\x0000
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x8000 ?\x0093 ?\x8000 ?\x00a4 ?\x0000 ?\x0000
@@ -496,7 +496,7 @@
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x0000 ?\x0000
    ?\x8000 ?\x0000 ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x0000 ?\x0000 ?\x8000 ?\x0000
    ?\x0000
-   ;; ShengMu Zh 
+   ;; ShengMu Zh
    ?\x978b ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000
    ?\x0000 ?\x1780 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000
    ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x0000 ?\x8000 ?\x8000 ?\x8000 ?\x8000 ?\x8000

@@ -63,7 +63,7 @@ Sorry, accents and terminal sigma are not supported in JIS."
  (its-defrule ","  ", ")
  (its-defrule "."  ". ")
  (its-defrule "/"  "／")
-  
+
  (its-defrule "!"  "！")
  (its-defrule "@"  "＠")
  (its-defrule "#"  "＃")
@@ -129,7 +129,7 @@ e.g.
 ;; 1!  2@  3#  4$  5%  6^  7&  8*  9(  0)  -_  =+  `~
 ;;  ,F7/  ,FrS  ,FeE  ,FqQ  ,FtT  ,FuU  ,FhH  ,FiI  ,FoO  ,FpP  [{  ]}
 ;;   ,FaA  ,FsS  ,FdD  ,FvV  ,FcC  ,FgG  ,FnN  ,FjJ  ,FkK  ,F4(  '"  \|
-;;    ,FfF  ,FwW  ,FxX  ,FyY  ,FbB  ,FmM  ,FlL  ,;  .:  /?  
+;;    ,FfF  ,FwW  ,FxX  ,FyY  ,FbB  ,FmM  ,FlL  ,;  .:  /?
 
  (its-defrule "1"   "1")
  (its-defrule "2"   "2")
@@ -178,7 +178,7 @@ e.g.
  (its-defrule ","   ",")
  (its-defrule "."   ".")
  (its-defrule "/"   "/")
- 
+
  (its-defrule "!"   "!")
  (its-defrule "@"   "@")
  (its-defrule "#"   "#")
@@ -226,7 +226,7 @@ e.g.
  (its-defrule "<"   ";")
  (its-defrule ">"   ":")
  (its-defrule "?"   "?")
- 
+
  (its-defrule "a;"  ",F\")
  (its-defrule "e;"  ",F]")
  (its-defrule "h;"  ",F^")

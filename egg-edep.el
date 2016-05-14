@@ -30,6 +30,36 @@
 
 ;;; Code:
 
+;;; (buffer-has-markers-at) has been marked as obsolete since 24.3.
+(defun egg-buffer-has-markers-at (position)
+  (let ((loop (lambda (r)
+                (let ((m (car r)))
+                  (cond
+                   ((null m) nil)
+                   ((and m (equal (marker-position m) position)) t)
+                   (t (funcall loop (cdr r))))))))
+    (funcall loop mark-ring)))
+
+(eval-when-compile
+  ;;; inactivate-input-method has been replaced with deactivate-input-method.
+  (defalias 'egg-deactivate-input-method
+    (if (fboundp 'deactivate-input-method)
+      'deactivate-input-method
+    'inactivate-input-method))
+
+  ;;; last-command-event has been replaced with last-command-char.
+  (defvaralias 'egg-last-command-event
+    (if (boundp 'last-command-event)
+      'last-command-event
+    'last-command-char))
+
+  ;;; deactivate-current-input-method-function has been replaced with
+  ;;; inactivate-current-input-method-function.
+  (defvaralias 'egg-deactivate-current-input-method-function
+    (if (boundp 'deactivate-current-input-method-function)
+      'deactivate-current-input-method-function
+    'inactivate-current-input-method-function))
+)
 
 (if (and (fboundp 'set-buffer-multibyte)
 	 (subrp (symbol-function 'set-buffer-multibyte)))

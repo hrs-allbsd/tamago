@@ -42,7 +42,8 @@
   "simple input method for Tamago 4." t)
 
 (defgroup egg nil
-  "Tamago Version 4.")
+  "Tamago Version 4."
+  :group 'mule)
 
 (defcustom egg-mode-preference t
   "*Make Egg as modefull input method, if non-NIL."
@@ -167,10 +168,7 @@
 	  (setq egg-modefull-mode t)
 	  (its-define-select-keys egg-modefull-map))
       (setq egg-modeless-mode t))
-    (set (if (fboundp 'deactivate-current-input-method-function)
-	     'deactivate-current-input-method-function
-	   'inactivate-current-input-method-function)
-	 'egg-mode)
+    (setq egg-deactivate-current-input-method-function 'egg-mode)
     (setq describe-current-input-method-function 'egg-help)
     (if (fboundp 'make-local-hook)
       (eval '(make-local-hook 'input-method-activate-hook)))
@@ -180,9 +178,7 @@
     (run-hooks 'egg-mode-hook)))
 
 (defun egg-exit-from-minibuffer ()
-  (if (fboundp 'deactivate-input-method)
-      (deactivate-input-method)
-    (inactivate-input-method))
+  (egg-deactivate-input-method)
   (if (<= (minibuffer-depth) 1)
       (remove-hook 'minibuffer-exit-hook 'egg-exit-from-minibuffer)))
 
@@ -190,9 +186,7 @@
 
 (defun egg-self-insert-char ()
   (interactive)
-  (its-start (if (boundp 'last-command-event)
-		 last-command-event
-	       last-command-char)
+  (its-start egg-last-command-event
 	     (and (eq last-command 'egg-use-context)
 				    egg-context)))
 

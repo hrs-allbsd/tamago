@@ -25,19 +25,53 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#ifdef HAVE_GETADDRINFO_UNIX
+#include <netdb.h>
+#endif
+
 
 #define BFSZ (4096)  /* buffer size */
 
+#ifndef HAVE_GETADDRINFO_UNIX
 #define SUNMAX 108   /* sockaddr_un.sun_path length = 108 */
-
+#endif
 /*
  * connect unix domain IM server
  */
 int connect_server(const char *sock_path)
 {
-	int sockfd;
+	int sockfd = -1;
+#ifdef HAVE_GETADDRINFO_UNIX
+	struct addrinfo hints, *res, *res0;
+	int error;
+#else
 	struct sockaddr_un sun;
-	
+#endif
+
+#ifdef HAVE_GETADDRINFO_UNIX
+	memset(&hints, 0, sizeof(hints));
+	hints.ai_family = AF_UNIX;
+	hints.ai_socktype = SOCK_STREAM;
+
+	error = getaddrinfo(sock_path, NULL, &hints,&res0);
+	if (error) {
+		perror(gai_strerror(error));
+		exit(1);
+	}
+	sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+	if (sockfd < 0) {
+		perror("unable open socket");
+		freeaddrinfo(res0);
+		exit(1);
+	}
+	if (connect(sockfd, res->ai_addr, res->ai_addrlen) < 0) {
+		perror("unable connect");
+		close(sockfd);
+		freeaddrinfo(res0);
+		exit(1);
+	}
+	freeaddrinfo(res0);
+#else
 	/* create unix domain socket */
 	if ((sockfd = socket(PF_UNIX, SOCK_STREAM, 0)) < 0) {
 		perror("unable open socket");
@@ -51,6 +85,7 @@ int connect_server(const char *sock_path)
 		perror("unable connect");
 		exit(1);
 	}
+#endif
 	return sockfd;
 }
 

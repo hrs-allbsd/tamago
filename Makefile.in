@@ -22,6 +22,8 @@ lispdir	= @lispdir@
 #------------------------------------------------
 
 prefix	= @prefix@
+datadir = @datadir@
+datarootdir = @datarootdir@
 INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@

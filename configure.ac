@@ -22,6 +22,19 @@ else
 fi
 AC_SUBST(HAVE_JISX0213)
 
-lispdir=${datadir}/emacs/site-lisp
+dnl Check if getaddrinfo(3) supports Unix domain socket or not.
+AC_ARG_ENABLE(getaddrinfo-unix,[AS_HELP_STRING([--enable-getaddrinfo-unix],
+[Use getaddrinfo(3) for Unix domain socket])],
+     HAVE_GETADDRINFO_UNIX="-DHAVE_GETADDRINFO_UNIX",
+     HAVE_GETADDRINFO_UNIX="")
+AC_SUBST(HAVE_GETADDRINFO_UNIX)
+
+dnl Check if lispdir is defined or not.
+AC_ARG_WITH(lispdir,[AS_HELP_STRING([--with-lispdir=LISPDIR],
+[Installation directory for Emacs Lisp (datadir/emacs/site-lisp)])],
+    lispdir=${withval},
+    lispdir=${datadir}/emacs/site-lisp)
 AC_SUBST(lispdir)
+
 AC_OUTPUT(Makefile)
+AC_OUTPUT(helper/Makefile)

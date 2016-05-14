@@ -168,7 +168,10 @@
 	  (setq egg-modefull-mode t)
 	  (its-define-select-keys egg-modefull-map))
       (setq egg-modeless-mode t))
-    (setq egg-deactivate-current-input-method-function 'egg-mode)
+    (set (if (boundp 'deactivate-current-input-method-function)
+               deactivate-current-input-method-function
+           inactivate-current-input-method-function
+           'egg-mode))
     (setq describe-current-input-method-function 'egg-help)
     (if (fboundp 'make-local-hook)
       (eval '(make-local-hook 'input-method-activate-hook)))
@@ -178,7 +181,9 @@
     (run-hooks 'egg-mode-hook)))
 
 (defun egg-exit-from-minibuffer ()
-  (egg-deactivate-input-method)
+  (if (fboundp 'deactivate-input-method)
+      (deactivate-input-method)
+    (inactivate-input-method))
   (if (<= (minibuffer-depth) 1)
       (remove-hook 'minibuffer-exit-hook 'egg-exit-from-minibuffer)))
 
@@ -186,7 +191,7 @@
 
 (defun egg-self-insert-char ()
   (interactive)
-  (its-start egg-last-command-event
+  (its-start last-command-event
 	     (and (eq last-command 'egg-use-context)
 				    egg-context)))
 

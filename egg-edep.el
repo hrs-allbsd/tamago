@@ -46,19 +46,6 @@
     (if (fboundp 'deactivate-input-method)
       'deactivate-input-method
     'inactivate-input-method))
-
-  ;;; last-command-event has been replaced with last-command-char.
-  (defvaralias 'egg-last-command-event
-    (if (boundp 'last-command-event)
-      'last-command-event
-    'last-command-char))
-
-  ;;; deactivate-current-input-method-function has been replaced with
-  ;;; inactivate-current-input-method-function.
-  (defvaralias 'egg-deactivate-current-input-method-function
-    (if (boundp 'deactivate-current-input-method-function)
-      'deactivate-current-input-method-function
-    'inactivate-current-input-method-function))
 )
 
 (if (and (fboundp 'set-buffer-multibyte)

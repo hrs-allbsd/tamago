@@ -82,7 +82,7 @@ wnn-uniq-kanji: Use only one among same kanji candidates."
 			     (const wnn-uniq)
 			     (const wnn-uniq-kanji)))
 
-(defcustom egg-wnn-helper-path "egg-helper"
+(defcustom egg-wnn-helper-path "@libexecdir@/egg-helper"
   "path of wnn unix domain connection helper program"
   :group 'wnn :type 'file)
 

@@ -19,7 +19,15 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 
 dnl Checks for library functions.
 
-dnl check if jisx0213 is supported or not
+dnl Check if documentation is required or not 
+AC_MSG_CHECKING(documentation)
+AC_ARG_ENABLE(doc,[AS_HELP_STRING([--disable-doc],
+[Disable installation of the document files.])],
+  echo "no"; doc_DATA='',
+  echo "yes"; doc_DATA='${DOCS}')
+AC_SUBST(doc_DATA)
+
+dnl Check if jisx0213 is supported or not
 AC_MSG_CHECKING(jisx0213)
 if ${EMACS} -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
   echo "yes"; HAVE_JISX0213="aynu.el"
@@ -35,10 +43,12 @@ AC_ARG_ENABLE(getaddrinfo-unix,[AS_HELP_STRING([--enable-getaddrinfo-unix],
   echo "yes"; AC_DEFINE([HAVE_GETADDRINFO_UNIX], [],
     [Define if getaddrinfo(3) supports AF_UNIX.]),
   echo "no")
+
 AC_CONFIG_FILES([
 Makefile
 egg/Makefile
 its/Makefile
 helper/Makefile
 ])
+
 AC_OUTPUT

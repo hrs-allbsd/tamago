@@ -13,3 +13,8 @@ noinst_LISP= \
 	anthy.el
 
 dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
+
+wnn.el: wnn.el.in
+	sed -e 's,[@]libexecdir@,@libexecdir@,' < $> > $@
+canna.el: canna.el.in
+	sed -e 's,[@]libexecdir@,@libexecdir@,' < $> > $@

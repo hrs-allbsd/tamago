@@ -14,6 +14,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -143,7 +144,7 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(lispdir)"
+am__installdirs = "$(DESTDIR)$(lispdir)" "$(DESTDIR)$(docdir)"
 dist_lispLISP_INSTALL = $(INSTALL_DATA)
 LISP = $(dist_lisp_LISP) $(noinst_LISP)
 am__ELFILES = ascii.el ascii.el.gz ascii.elc aynu.el bixing.el \
@@ -158,6 +159,7 @@ am__ELFILES = ascii.el ascii.el.gz ascii.elc aynu.el bixing.el \
 	zhuyin.elc
 am__ELCFILES = $(am__ELFILES:.el=.elc)
 ELCFILES = $(LISP:.el=.elc)
+DATA = $(doc_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -239,6 +241,7 @@ build_alias = @build_alias@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
+doc_DATA = @doc_DATA@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
@@ -366,6 +369,27 @@ uninstall-dist_lispLISP:
 
 clean-lisp:
 	-rm -f $(ELCFILES)
+install-docDATA: $(doc_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(doc_DATA)'; test -n "$(docdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(docdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(docdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(docdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(docdir)" || exit $$?; \
+	done
+
+uninstall-docDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(doc_DATA)'; test -n "$(docdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(docdir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -451,9 +475,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LISP) $(ELCFILES)
+all-am: Makefile $(LISP) $(ELCFILES) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(lispdir)"; do \
+	for dir in "$(DESTDIR)$(lispdir)" "$(DESTDIR)$(docdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -506,7 +530,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-dist_lispLISP
+install-data-am: install-dist_lispLISP install-docDATA
 
 install-dvi: install-dvi-am
 
@@ -550,7 +574,7 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-dist_lispLISP
+uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 
 .MAKE: install-am install-strip
 
@@ -558,14 +582,15 @@ uninstall-am: uninstall-dist_lispLISP
 	clean-lisp cscopelist-am ctags ctags-am distclean \
 	distclean-generic distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
-	install-data-am install-dist_lispLISP install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-dist_lispLISP
+	install-data-am install-dist_lispLISP install-docDATA \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am tags \
+	tags-am uninstall uninstall-am uninstall-dist_lispLISP \
+	uninstall-docDATA
 
 .PRECIOUS: Makefile
 

@@ -53,7 +53,7 @@
   "Group Name on CANNA server"
   :group 'canna :type 'string)
 
-(defcustom egg-canna-helper-path "egg-helper"
+(defcustom egg-canna-helper-path "@libexecdir@/egg-helper"
   "path of canna unix domain connection helper program"
   :group 'canna :type 'file)
 

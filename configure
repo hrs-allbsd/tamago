@@ -589,6 +589,7 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 HAVE_JISX0213
+doc_DATA
 lispdir
 EMACSLOADPATH
 EMACS
@@ -680,6 +681,7 @@ enable_option_checking
 enable_silent_rules
 enable_dependency_tracking
 with_lispdir
+enable_doc
 enable_getaddrinfo_unix
 '
       ac_precious_vars='build_alias
@@ -1312,6 +1314,7 @@ Optional Features:
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
+  --disable-doc           Disable installation of the document files.
   --enable-getaddrinfo-unix
                           Use getaddrinfo(3) for Unix domain socket
 
@@ -3584,6 +3587,17 @@ fi
 
 
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking documentation" >&5
+$as_echo_n "checking documentation... " >&6; }
+# Check whether --enable-doc was given.
+if test "${enable_doc+set}" = set; then :
+  enableval=$enable_doc; echo "no"; doc_DATA=''
+else
+  echo "yes"; doc_DATA='${DOCS}'
+fi
+
+
+
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking jisx0213" >&5
 $as_echo_n "checking jisx0213... " >&6; }
 if ${EMACS} -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
@@ -3604,7 +3618,9 @@ else
   echo "no"
 fi
 
+
 ac_config_files="$ac_config_files Makefile egg/Makefile its/Makefile helper/Makefile"
+
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

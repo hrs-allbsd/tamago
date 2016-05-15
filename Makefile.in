@@ -198,7 +198,7 @@ CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/elisp.mk AUTHORS COPYING ChangeLog INSTALL NEWS \
-	README TODO compile install-sh missing
+	README TODO compile depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -301,6 +301,7 @@ build_alias = @build_alias@
 builddir = @builddir@
 datadir = @datadir@
 datarootdir = @datarootdir@
+doc_DATA = @doc_DATA@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
@@ -348,13 +349,11 @@ noinst_LISP = \
 dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} leim-list.el
 ELCFILES = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
 EXTRA_LISP = docomp.el leim-list.el
-doc_DATA = AUTHORS ChangeLog README TODO PROBLEMS \
+DOCS = AUTHORS ChangeLog README TODO PROBLEMS \
 		ChangeLog.1997-1998 ChangeLog.2000-2001 ChangeLog.2002-2004 \
 		README.ja.txt egg-anthy.readme
 
-EXTRA_DIST = \
-	eggrc
-
+EXTRA_DIST = eggrc @doc_DATA@
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -904,9 +903,6 @@ ${noinst_LISP:.el=.el.gz}: ${noinst_LISP}
 	for F in ${noinst_LISP}; do \
 		gzip -9 < $$F > $$F.gz; \
 	done
-	AUTHORS ChangeLog README TODO PROBLEMS \
-	ChangeLog.1997-1998 ChangeLog.2000-2001 ChangeLog.2002-2004 \
-	README.ja.txt egg-anthy.readme
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

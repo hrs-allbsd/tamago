@@ -147,16 +147,16 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(lispdir)" "$(DESTDIR)$(docdir)"
 dist_lispLISP_INSTALL = $(INSTALL_DATA)
 LISP = $(dist_lisp_LISP) $(noinst_LISP)
-am__ELFILES = ascii.el ascii.el.gz ascii.elc aynu.el bixing.el \
-	bixing.el.gz bixing.elc erpin.el erpin.el.gz erpin.elc \
-	greek.el greek.el.gz greek.elc hangul.el hangul.el.gz \
-	hangul.elc hankata.el hankata.el.gz hankata.elc hira.el \
-	hira.el.gz hira.elc jeonkak.el jeonkak.el.gz jeonkak.elc \
-	jiskana.el jiskana.el.gz jiskana.elc kata.el kata.el.gz \
-	kata.elc pinyin.el pinyin.el.gz pinyin.elc quanjiao.el \
-	quanjiao.el.gz quanjiao.elc thai.el thai.el.gz thai.elc \
-	zenkaku.el zenkaku.el.gz zenkaku.elc zhuyin.el zhuyin.el.gz \
-	zhuyin.elc
+am__ELFILES = .nosearch ascii.el ascii.el.gz ascii.elc aynu.el \
+	bixing.el bixing.el.gz bixing.elc erpin.el erpin.el.gz \
+	erpin.elc greek.el greek.el.gz greek.elc hangul.el \
+	hangul.el.gz hangul.elc hankata.el hankata.el.gz hankata.elc \
+	hira.el hira.el.gz hira.elc jeonkak.el jeonkak.el.gz \
+	jeonkak.elc jiskana.el jiskana.el.gz jiskana.elc kata.el \
+	kata.el.gz kata.elc pinyin.el pinyin.el.gz pinyin.elc \
+	quanjiao.el quanjiao.el.gz quanjiao.elc thai.el thai.el.gz \
+	thai.elc zenkaku.el zenkaku.el.gz zenkaku.elc zhuyin.el \
+	zhuyin.el.gz zhuyin.elc
 am__ELCFILES = $(am__ELFILES:.el=.elc)
 ELCFILES = $(LISP:.el=.elc)
 DATA = $(doc_DATA)
@@ -288,7 +288,7 @@ noinst_LISP = \
 	jiskana.el \
 	@HAVE_JISX0213@
 
-dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
+dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} .nosearch
 EXTRA_LISP = aynu.el
 all: all-am
 
@@ -595,6 +595,9 @@ uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 .PRECIOUS: Makefile
 
 include ${top_srcdir}/elisp.mk
+
+.nosearch:
+	touch $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -12,8 +12,10 @@ noinst_LISP= \
 	anthyipc.el \
 	anthy.el
 
-dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
+dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} .nosearch
 
+.nosearch:
+	touch $@
 wnn.el: wnn.el.in
 	sed -e 's,[@]libexecdir@,@libexecdir@,' < wnn.el.in > $@
 canna.el: canna.el.in

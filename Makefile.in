@@ -161,7 +161,7 @@ am__ELFILES = docomp.el egg-cnv.el egg-cnv.el.gz egg-cnv.elc \
 	egg-com.el egg-com.el.gz egg-com.elc egg-edep.el \
 	egg-edep.el.gz egg-edep.elc egg-mlh.el egg-mlh.el.gz \
 	egg-mlh.elc egg-sim.el egg-sim.el.gz egg-sim.elc egg.el \
-	egg.el.gz egg.elc its-keydef.el its-keydef.el.gz \
+	egg.el.gz egg.elc eggrc its-keydef.el its-keydef.el.gz \
 	its-keydef.elc its.el its.el.gz its.elc leim-list.el \
 	menudiag.el menudiag.el.gz menudiag.elc
 am__ELCFILES = $(am__ELFILES:.el=.elc)
@@ -334,7 +334,7 @@ AM_ELCFLAGS = -q -no-site-file -no-init-file \
 		--eval="(setq load-path (append (list (expand-file-name \"$(top_srcdir)\")) load-path))" \
 		--eval="(load \"docomp.el\")"
 
-SUBDIRS = egg its
+SUBDIRS = egg its helper
 noinst_LISP = \
 	egg.el \
 	egg-edep.el \
@@ -346,7 +346,9 @@ noinst_LISP = \
 	its.el \
 	its-keydef.el
 
-dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} leim-list.el
+dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} \
+		leim-list.el eggrc
+
 ELCFILES = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
 EXTRA_LISP = docomp.el leim-list.el
 DOCS = AUTHORS ChangeLog README TODO PROBLEMS \

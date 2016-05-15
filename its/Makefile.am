@@ -20,6 +20,9 @@ noinst_LISP= \
 	jiskana.el \
 	@HAVE_JISX0213@
 
-dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
+dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} .nosearch
 
 EXTRA_LISP=	aynu.el
+
+.nosearch:
+	touch $@

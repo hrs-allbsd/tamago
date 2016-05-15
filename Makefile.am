@@ -1,6 +1,6 @@
 include $(top_srcdir)/elisp.mk
 
-SUBDIRS= egg its
+SUBDIRS= egg its helper
 
 lispdir= @lispdir@/egg
 
@@ -15,7 +15,8 @@ noinst_LISP= \
 	its.el \
 	its-keydef.el
 
-dist_lisp_LISP= ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} leim-list.el
+dist_lisp_LISP= ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} \
+		leim-list.el eggrc
 ELCFILES=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
 
 EXTRA_LISP=	docomp.el leim-list.el

@@ -147,7 +147,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(lispdir)" "$(DESTDIR)$(docdir)"
 dist_lispLISP_INSTALL = $(INSTALL_DATA)
 LISP = $(dist_lisp_LISP) $(noinst_LISP)
-am__ELFILES = anthy.el anthy.el.gz anthy.elc anthyipc.el \
+am__ELFILES = .nosearch anthy.el anthy.el.gz anthy.elc anthyipc.el \
 	anthyipc.el.gz anthyipc.elc canna.el canna.el.gz canna.elc \
 	cannarpc.el cannarpc.el.gz cannarpc.elc sj3.el sj3.el.gz \
 	sj3.elc sj3rpc.el sj3rpc.el.gz sj3rpc.elc wnn.el wnn.el.gz \
@@ -275,7 +275,7 @@ noinst_LISP = \
 	anthyipc.el \
 	anthy.el
 
-dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
+dist_lisp_LISP = ${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} .nosearch
 all: all-am
 
 .SUFFIXES:
@@ -582,6 +582,8 @@ uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 
 include ${top_srcdir}/elisp.mk
 
+.nosearch:
+	touch $@
 wnn.el: wnn.el.in
 	sed -e 's,[@]libexecdir@,@libexecdir@,' < wnn.el.in > $@
 canna.el: canna.el.in

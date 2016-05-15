@@ -3591,7 +3591,11 @@ fi
 $as_echo_n "checking documentation... " >&6; }
 # Check whether --enable-doc was given.
 if test "${enable_doc+set}" = set; then :
-  enableval=$enable_doc; echo "no"; doc_DATA=''
+  enableval=$enable_doc; if test "X${enableval}" != Xyes; then
+    echo "no"; doc_DATA=''
+  else
+    echo "yes"; doc_DATA='${DOCS}'
+  fi
 else
   echo "yes"; doc_DATA='${DOCS}'
 fi

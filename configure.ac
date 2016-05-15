@@ -23,7 +23,11 @@ dnl Check if documentation is required or not
 AC_MSG_CHECKING(documentation)
 AC_ARG_ENABLE(doc,[AS_HELP_STRING([--disable-doc],
 [Disable installation of the document files.])],
-  echo "no"; doc_DATA='',
+  if test "X${enableval}" != Xyes; then
+    echo "no"; doc_DATA=''
+  else
+    echo "yes"; doc_DATA='${DOCS}'
+  fi,
   echo "yes"; doc_DATA='${DOCS}')
 AC_SUBST(doc_DATA)
 

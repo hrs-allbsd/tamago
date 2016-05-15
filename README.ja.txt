@@ -1,7 +1,7 @@
 
 			   Tamago Version 4
 
-		   NIIBE Yutaka <gniibe@chroot.org>
+		   NIIBE Yutaka <gniibe@fsij.org>
 		   KATAYAMA Yoshio <kate@pfu.co.jp>
 		   TOMURA Satoru <tomura@etl.go.jp>
 

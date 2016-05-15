@@ -1,4 +1,4 @@
-1998-07-12  NIIBE Yutaka  <gniibe@chroot.org>
+1998-07-12  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-mlh.el (mlh-space-bar-backward-henkan): Don't test against
 	egg-conversion-backend-alist.
@@ -38,7 +38,7 @@
 	(egg-conversion-backend): Not buffer local.
 	(egg-finalize-backend-alist): Removed.
 
-1998-07-10  NIIBE Yutaka  <gniibe@chroot.org>
+1998-07-10  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-cnv.el (egg-start-conversion-failure-hook): New Variable.
 	(egg-start-conversion-failure-fallback): New Function.
@@ -69,7 +69,7 @@
 	(its-set-interim-terminal-state): New Function.
 	(its-make-next-state): Remove 2nd argument KEYSEQ.
 
-1998-07-01  NIIBE Yutaka  <gniibe@chroot.org>
+1998-07-01  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-mlh.el (mlh-hira-to-kata): Removed.  Doesn't work any more.
 	(mlh-katakana): Use japanese-katakana-region.
@@ -80,7 +80,7 @@
 
 	* egg-cnv.el (egg-abort-conversion): Bug fix.
 
-1998-06-27  NIIBE Yutaka  <gniibe@akebono>
+1998-06-27  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg/wnn.el (wnn-dictionary-specification-list): Don' specify
 	for gerodic/g-jinmei.
@@ -212,19 +212,19 @@
 	* its/thai.el: New File.
 	* its/hangul.el: Updated.
 
-1998-06-26  NIIBE Yutaka  <gniibe@chroot.org>
+1998-06-26  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Makefile (install): Don't touch .emacs and leim-list.el
 	directly.  User should do it by her hand.
 	Reported by SAKAI Kiyotaka <ksakai@netwk.ntt-at.co.jp>
 
-1998-06-25  NIIBE Yutaka  <gniibe@chroot.org>
+1998-06-25  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg/canna.el (canna-dictionary-specification): "user" instead of
 	("user").  Should chnage canna-filename later.
 	Reported by Akio Morita <amorita@bird.scphys.kyoto-u.ac.jp>.
 
-1998-04-02  NIIBE Yutaka  <gniibe@chroot.org>
+1998-04-02  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-com.el (comm-unpack-u16-string): Call string-as-multibyte.
 	(comm-unpack-mb-string): Likewise.
@@ -249,13 +249,13 @@
 	* egg-mlh.el (mlh-space-bar-backward-henkan): activate input
 	method.
 
-1998-04-02  NIIBE Yutaka  <gniibe@chroot.org>
+1998-04-02  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-cnv.el (egg-decide-bunsetsu): Undo changes of 03-16.
 	(egg-abort-conversion): Call egg-end-conversion.
 	(egg-decide-before-point): Call egg-end-conversion widh ABORT=NIL.
 
-1998-03-16  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-16  NIIBE Yutaka <gniibe@fsij.org>
 
 	CANNA Support.
 	* egg/canna.el, egg/cannarpc.el: New file.
@@ -267,7 +267,7 @@
 	EGG-END-CONVERSION.
 	* egg/sj3.el (sj3-end-conversion): Likewise.
 
-1998-03-15  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-15  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Makefile: Add dependencies for its-keydef.elc.
 	* egg/sj3rpc.el (sj3-open): Don't support list of hosts.
@@ -423,7 +423,7 @@
 	* its/zenkaku.el: New file.
 	* its/zhuyin.el: New file.
 
-1998-03-14  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-14  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg/sj3rpc.el (sj3rpc-close): New function.
 
@@ -432,7 +432,7 @@
 	(sj3-end-conversion): Implement CLSTDY.
 	(sj3-fini): Implemented.
 
-1998-03-10  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-10  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg/sj3.el (sj3-end-conversion): Implement bunsetsu study.
 	CLSTDY not yet.
@@ -446,7 +446,7 @@
 	* egg-com.el (comm-format-u8-vector): New substitution.
 	(comm-format): New format 'v'.
 
-1998-03-09  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-09  NIIBE Yutaka <gniibe@fsij.org>
 
 	* docomp.el (its-keydef): Require its-keydef when compile.
 	Not so good.  Just a work around.
@@ -457,7 +457,7 @@
 	* its.el (its-translate-region): Make it command.
 	(its-translate-region-internal): Make it function.
 
-1998-03-04  NIIBE Yutaka  <gniibe@chroot.org>
+1998-03-04  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-define-select-keys of its-mode-map): Comment it out.
 	* its-keydef.el (its-make-select-func): Add eval-when to compile this.
@@ -567,13 +567,13 @@
 	(egg-exit-conversion): Use gg-decide-before-point.
 	(egg-abort-conversion): New command.
 
-1998-02-20  NIIBE Yutaka  <gniibe@akebono>
+1998-02-20  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Makefile (SRCS), Egg.prj: Remove euc-china.el.
 	* egg-com.el: Include egg-china.el.
 	* egg-china.el: Removed.
 
-1998-02-18  NIIBE Yutaka  <gniibe@chroot.org>
+1998-02-18  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Egg.prj: Use PRCS.
 
@@ -591,7 +591,7 @@
 	* egg/wnn.el (egg-activate-wnn): 
 	* egg/sj3.el (egg-activate-sj3): 
 	
-1998-02-17  NIIBE Yutaka  <gniibe@chroot.org>
+1998-02-17  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Makefile (SRCS): Add its/pinyin.el, its/hangul.el and
 	its-keydef.el.
@@ -781,9 +781,9 @@
 1997-11-03  KATAYAMA Yoshio <kate@pfu.co.jp>
 
 	* euc-cn.el: New file.  Original name was yincoding.el.
-	Adopted by NIIBE Yutaka  <gniibe@chroot.org>.
+	Adopted by NIIBE Yutaka <gniibe@fsij.org>.
 	
-1997-11-03  NIIBE Yutaka  <gniibe@chroot.org>
+1997-11-03  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-start): Add INVISIBLE property if ITS-FENCE-FACE.
 	* egg-cnv.el (egg-decide-before-point): Ditto.
@@ -816,7 +816,7 @@
 	* egg.el, egg-mlh.el, egg-com.el, egg-cnv.el: Rename from tamago-*.el
 	* Makefile: Follow the changes.
 
-1997-10-05  NIIBE Yutaka  <gniibe@chroot.org>
+1997-10-05  NIIBE Yutaka <gniibe@fsij.org>
 
 	* tamago/wnn.el (wnn-uniq-candidates): Add new argument BUNSETSU.
 	Call WNN-BUNSETSU-SET-ZENKOUHO-POS, WNN-BUNSETSU-SET-ZENKOUHO in
@@ -827,21 +827,21 @@
 	* tamago-cnv.el (egg-next-candidate): Handle the case where
 	EGG-LIST-CANDIDATES returns non zero value.
 
-1997-10-04  NIIBE Yutaka  <gniibe@chroot.org>
+1997-10-04  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Makefile (install): Install to SITEDIR.
 
-1997-09-26  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-26  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its/hira.el (its-hira-enable-zenkaku-alphabet): New variable.
 	(its-hira-map): Use it.
 
-1997-09-19  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-19  NIIBE Yutaka <gniibe@fsij.org>
 
 	Arrange for LEIM.  Use tamago/ subdirectory.
 	* tamago/: Rename from tamago-lib.
 
-1997-09-18  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-18  NIIBE Yutaka <gniibe@fsij.org>
 
 	* tamago-cnv.el (egg-select-candidate): menu-select -->
 	menudiag-select. 
@@ -864,7 +864,7 @@
 	* menudiag.el: Rename from menu.el.
 	(Throughout): Rename menu-* to menudiag-*.
 
-1997-09-07  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-07  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg.el (egg-insert-after-hook, egg-exit-hook): Removed.
 	(egg-sai-henkan-start, egg-sai-henkan-end, egg-old-bunsetu-suu):
@@ -898,7 +898,7 @@
 	(wnnenv-get-daibunsetsu-info, wnnenv-set-daibunsetsu-info): Likewise.
 	(wnn-create-environment, wnn-get-environment): Likewise.
 
-1997-09-04  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-04  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-state-machine-keyseq): Bug fix.  Handle VSYL.
 
@@ -908,7 +908,7 @@
 	* wnnrpc.el (wnnrpc-call-with-proc, wnnrpc-call-with-proc-1): Deleted.
 	Throughout: Use comm-call-with-proc and comm-call-with-proc-1.
 
-1997-09-03  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-03  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-call-with-proc-1): Bug fix.  let --> progn.
 
@@ -928,7 +928,7 @@
 	* mlh.el (mlh-zenkaku): Use new API of Emacs-20,
 	japanese-zenkaku-region.
 
-1997-09-02  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-02  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg.el (egg-toroku-region): New function.
 
@@ -940,7 +940,7 @@
 	(wnnrpc-get-writable-dictionary-id-list): Rename from
 	wnnrpc-get-writable-dictionary-list.
 
-1997-09-01  NIIBE Yutaka  <gniibe@chroot.org>
+1997-09-01  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-decide-bunsetsu): New function.
 	(egg-decide-before-point): New command.
@@ -962,7 +962,7 @@
 	its-end-of-input-buffer, its-backward-SYL, its-forward-SYL,
 	its-delete-SYL): Follow the change.
 
-1997-08-31  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-31  NIIBE Yutaka <gniibe@fsij.org>
 
 	For egg-mode, don't use minor mode, override local map instead.
 	For its-mode and egg-conversion-mode, don't use minor mode,
@@ -982,7 +982,7 @@
 
 	* its.el (its-exit-mode-off-input-method): New function.
 
-1997-08-29  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-29  NIIBE Yutaka <gniibe@fsij.org>
 
 	Let Undo work correctly.
 	* its.el (its-self-insert-char): Delete/Insert cursor.
@@ -999,7 +999,7 @@
 	* its-pinyin.el: New file.
 	* its-zhuyin.el: New file.
 
-1997-08-28  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-28  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-exit-mode-no-egg): Removed.
 	(its-exit-mode-internal): Remove first argument.
@@ -1020,7 +1020,7 @@
 	(its-enter, its-left): New functions.
 	(its-mode): New variable.  New minor mode.
 
-1997-08-27  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-27  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-exit-conversion-no-egg): Removed.
 	(egg-exit-conversion): No argument, no egg-mode.
@@ -1029,14 +1029,14 @@
 	* its.el (its-exit-mode-internal): Follow it.
 	* mlh.el (mlh-space-bar-backward-henkan): Ditto.
 
-1997-08-26  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-26  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn.el (wnn-change-bunsetsu-length): Don't use magic #3.
 
 	* convert.el (egg-insert-bunsetsu-list): Add optional argument
 	CONTIN.
 
-1997-08-25  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-25  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-insert-bunsetsu): Include seperator.  Add
 	intangible property to bunsetsu.
@@ -1049,7 +1049,7 @@
 	* mlh.el (mlh-space-bar-backward-henkan): Call egg-convert-region
 	with last argument t.  Turn of egg-mode.
 
-1997-08-24  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-24  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-exit-mode-internal): Inactivate input method.
 
@@ -1067,7 +1067,7 @@
 	(wnn-start-conversion): Don't call wnnenv-set-bunsetsu-list.
 	(wnn-end-conversion): Ditto.
 
-1997-08-23  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-23  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-change-bunsetsu-length): Change the interface.
 	(egg-shrink-bunsetsu,egg-enlarge-bunsetsu): Follow it.
@@ -1077,19 +1077,19 @@
 	(egg-select-candidate, egg-shrink-bunsetsu, egg-enlarge-bunsetsu,
 	egg-next-candidate): Use egg-get-previous-bunsetsu.
 
-1997-08-20  NIIBE Yutaka  <gniibe@chroot.org>
+1997-08-20  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg.el (minor-mode-alist): Don't show " EGG" in mode line.
 	(egg-mode): Use input method indicator instead.
 
-1997-07-20  NIIBE Yutaka  <gniibe@chroot.org>
+1997-07-20  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-next-candidate): Rename from egg-next-conversion.
 	(egg-previous-candidate): Rename from egg-previous-conversion.
 	(egg-select-candidate): Follow the change of new interface.
 	(egg-source-maxlen-from-here): Likewise.
 
-1997-07-19  NIIBE Yutaka  <gniibe@chroot.org>
+1997-07-19  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn.el (wnn-start-conversion): Change the interface.  Return ENV
 	and the	list of bunsetsu.  Fix the documentation string too.
@@ -1113,7 +1113,7 @@
 	(wnnrpc-receive-sho-bunsetsu-list): Take ENV as the first argument.
 	(wnnrpc-renbunsetsu-conversion): Follow the change.
 
-1997-07-17  NIIBE Yutaka  <gniibe@chroot.org>
+1997-07-17  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-decide-candidate):  Change the interface.
 	Take the argument bunsetsu-info instead of conversion-engine.
@@ -1159,11 +1159,11 @@
 	* its.el (its-state-machine-keyseq, its-state-machine): Handle
 	end-of-input correctly when going backward.
 
-1997-07-16  NIIBE Yutaka  <gniibe@chroot.org>
+1997-07-16  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn.el (wnn-create-directory): Bug fix.  Really make directory.
 
-1997-07-15  NIIBE Yutaka  <gniibe@chroot.org>
+1997-07-15  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its-hangul.el (its-define-hangul): Use its-defrule-otherwise.
 
@@ -1171,12 +1171,12 @@
 
 	* its-hangul.el: Updated.
 
-1997-06-19  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-06-19  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its-hira.el: its-hira-hankaku-escape --> its-hankaku-escape.
 	its-hira-zenkaku-escape --> its-zenkaku-escape.
 
-1997-06-14  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-14  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el: Change the data structure of <expr-output-back-list> so
  	that it can encourage sharing same structure and it can use same
@@ -1187,7 +1187,7 @@
 	(its-eob-keyexpr, its-eob-back, its-make-class+back,
  	its-make-otherwise): New substitutions.
 
-1997-06-13  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-13  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its-kana.el: New file.  Taken from its/kanainput.el of Mule-2.3.
 
@@ -1198,11 +1198,11 @@
 	(define-its-state-machine, define-its-state-machine-append): New
  	macro.
 
-1997-06-13  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-06-13  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its-hira.el ("n'"): Added.
 
-1997-06-12  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-06-12  NIIBE Yutaka <gniibe@fsij.org>
 
 	its-zenkaku-escape and its-hankaku-escape are also used in hangul.
 	* its.el (its-zenkaku-escape, its-hankaku-escape): Moved to here
@@ -1217,7 +1217,7 @@
 
 	* its-hangul.el: New file.
 
-1997-06-10  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-10  NIIBE Yutaka <gniibe@fsij.org>
 
 	Miscellaneous cosmetic changes.
 	* comm.el: New file.  Move communication related funcitons from
@@ -1243,7 +1243,7 @@
 
 	* egg.el: Comment out definition of C-\ in global-map.
 
-1997-06-09  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-09  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-kick-convert-region): Rename from its-convert-region.
 	(its-mode-map): Follow the change.
@@ -1260,7 +1260,7 @@
 
 	(its-goto-state): Tune up.
 
-1997-06-08  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-08  NIIBE Yutaka <gniibe@fsij.org>
 
 	* mlh.el: Merge mlh-nihongo.el.
 	* mlh-nihongo.el: Removed.
@@ -1309,7 +1309,7 @@
  	wnnrpc-unpack-bytes): Use it.  Use search-forward.
 	(wnnrpc-unpack-u16-string): Use decode-coding-region.
 
-1997-06-07  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-07  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn.el (wnn-get-all-candidates): New function.
 	(wnn-set-bunsetsu-pos): Return 0 (instead of -1).
@@ -1320,14 +1320,14 @@
 	(egg-select-candidate): New function.
 	(egg-conversion-map): Bind "\M-s" and egg-select-candidate.
 
-1997-06-05  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-05  NIIBE Yutaka <gniibe@fsij.org>
 
 	* bushu.el: Renamed from busyu.el.
 	(bushu-break-string, etc): Renamed from busyu*.
 
 	* menu.el: Completely rewritten.
 
-1997-06-03  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-06-03  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-reset-start-state): Bug fix.  Delete a CDR.
 
@@ -1347,7 +1347,7 @@
 
 	* its/hira.el (n): Use its-define-otherwise.
 
-1997-06-02  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-02  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-receive-sho-bunsetsu-list-sub,
  	wnnrpc-receive-sho-bunsetsu-list-sub-2): Splited from
@@ -1356,7 +1356,7 @@
 	(wnnrpc-daibunsetsu-conversion, wnnrpc-get-daibunsetsu-candidate): 
 	New function.
 
-1997-06-01  NIIBE Yutaka  <gniibe@chroot.org>
+1997-06-01  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (ccl-decode-fixed-euc-jp): Clean it up.
 	(wnnrpc-file-attribute): Rename from wnnrpc-stat-file.
@@ -1373,7 +1373,7 @@
  	wnnrpc-set-file-comment, wnnrpc-hinshi-name,
  	wnnrpc-set-file-password, wnnrpc-set-hinshi-table): New functions.
 
-1997-05-31  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-31  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-format-u32c, wnnrpc-unpack-u32c): New
  	substitutions.  Support 32-bit number represented in cons cell of
@@ -1388,7 +1388,7 @@
 	(wnnrpc-call-with-proc-1): New macro.  Assume the buffer is the one
 	of process.
 
-1997-05-29  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-29  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-get-conversion-parameters, wnnrpc-file-loaded,
  	wnnrpc-write-file, wnnrpc-get-fuzokugo-file, wnnrpc-get-file-list,
@@ -1406,7 +1406,7 @@
 	ccl-encode-fixed-euc): New private coding system.  Encode/decode
 	CCL for it.
 
-1997-05-27  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-27  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-tanbunsetsu-conversion): Change the argument.
 	(wnnrpc-get-bunsetsu-candidates): Likewise.
@@ -1416,7 +1416,7 @@
 	(wnn-set-bunsetsu-pos): Likewise.
 	(wnn-change-bunsetsu-length, wnn-start-conversion): Likewise.
 
-1997-05-25  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-25  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-add-word, wnnrpc-get-dictionary-list,
 	wnnrpc-receive-dictionary-list, wnnrpc-get-writable-dictionary-list,
@@ -1437,7 +1437,7 @@
  	wnn-open-frequency, wnn-query-del/create-frequency): New function.
 	(wnn-set-dictionary-sub): New function.
 
-1997-05-24  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-24  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-version, wnnrpc-access, wnnrpc-mkdir,
  	wnnrpc-create-dictionary, wnnrpc-create-frequency, 
@@ -1457,7 +1457,7 @@
 	an error message for wnnrpc-set-fuzokugo-file on failure.
 	(wnn-set-dictionary): Handle return value.
 
-1997-05-17  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-17  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-error-message): Error strings taken from
  	Wnn-4.2 distribution.
@@ -1480,7 +1480,7 @@
 	(wnn-get-environment): Follow the change.  On failure, don't
 	register the environment to wnn-environments.
 
-1997-05-16  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-05-16  NIIBE Yutaka <gniibe@fsij.org>
 
 	Dynamically allocate environment arbitrarily.
 	* wnn.el (wnn-create-environment): Change the structure of ENV.
@@ -1491,7 +1491,7 @@
 
 	* wnn.el (wnn-fini): Implemented.
 
-1997-05-15  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-15  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-start-conversion): Change the interface.
 	(egg-convert-region): Follow the change.
@@ -1503,7 +1503,7 @@
 	(wnn-connect-and-init): Removed.
 	(wnn-environments): New variable which holds all environments.
 
-1997-05-15  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-05-15  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn.el (wnn-change-bunsetsu-length): Bug fix.  Last argument to
  	wnnrpc-b-set-freq-down is list of bunsetsu.
@@ -1519,7 +1519,7 @@
 
 	* its.el (its-defrule): New argument `enable-overwrite'.
 
-1997-05-14  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-14  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-exit-conversion-unread-char): Use newer variable
  	unread-command-events, as unread-command-char is obsolete.
@@ -1553,14 +1553,14 @@
 	* wnn.el (wnn-open): Change the name of WNN buffer as debug has
  	been done.
 
-1997-05-11  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-11  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el (wnnrpc-following-char-or-wait): Rename from
  	wnn-following-char-or-wait.
 	(wnnrpc-following-char-or-wait): Declare with DEFUN instead of
  	DEFSUBST.
 
-1997-05-10  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-10  NIIBE Yutaka <gniibe@fsij.org>
 
 	* Throughout: Use JUNET coding system for file format.
 
@@ -1581,7 +1581,7 @@
 
 	* mlh.el, nihongo.el: Taken from mlh-1.002 distribution.
 
-1997-05-07  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-07  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-update-frequency): Removed.
 	(egg-conversion-backend): Remove entry for update-frequency.
@@ -1590,11 +1590,11 @@
 	according to suggestion by Tomoko Yoshida in mule-jp@etl.go.jp.
 	Original had been taken from wnn-4.2.
 
-1997-05-06  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-06  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-next-conversion): Bug fix.  It's max+ instead of n.
 
-1997-05-05  NIIBE Yutaka  <gniibe@chroot.org>
+1997-05-05  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnfns.c (Fwnn_get_bunsetsu_converted): Rename from
 	get-converted-bunsetsu.
@@ -1605,11 +1605,11 @@
 	* wnn.el (wnn-create-environment): New file which mimics API of
 	wnnfns.c.
 
-1997-04-29  NIIBE Yutaka  <gniibe@chroot.org>
+1997-04-29  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnrpc.el: New file which implements Remote Procedure Calls of WNN.
 
-1997-04-16  NIIBE Yutaka  <gniibe@chroot.org>
+1997-04-16  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its/kanainput.el (normal-pair): Use its-defrule*.
 
@@ -1625,7 +1625,7 @@
 	(its-goto-state): New function.
 	(its-defrule, its-defoutput): Use its-goto-state.
 
-1997-04-12  NIIBE Yutaka  <gniibe@chroot.org>
+1997-04-12  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el: Enhance meaning of ITS state machine.  Now, <key>
  	includes representation of "ANY of key stroke" (-2).
@@ -1637,29 +1637,29 @@
  	its-k-symbols-escape): Add prefix its-.  Let them defconst.
 	"W": Move the definition beginning to avoid error.
 
-1997-03-26  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-26  NIIBE Yutaka <gniibe@fsij.org>
 
 	* convert.el (egg-next-conversion): -1 goes to end of bunsetsu.
 
-1997-03-25  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-25  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg.el (egg-mode-on, egg-input-mode, egg-in-fence-mode): Deleted.
 	(egg-fence-face-on, egg-fence-face-off): Deleted.
 	(egg-region-start, egg-region-end): Deleted.
 
-1997-03-24  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-24  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its/hira.el ("n"): Add "z" and "?" for prefetch char of "n".
 
 	Implement conversion mode.
 	* convert.el: New file.
 
-1997-03-23  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-23  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-mode-map): As "\C-g" is used in global-map, use
  	"\C-]" instead (for its-cancel-input).
 
-1997-03-22  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-22  NIIBE Yutaka <gniibe@fsij.org>
 
 	Introduce new scheme to specify server.
 	* wnnfns.c (Qjserver, Qcserver, Qtserver, Qkserver): Removed.
@@ -1672,7 +1672,7 @@
 	(Vwnn_uniqueness_specifier): Integer variable.  Renamed from
 	wnn_uniq_level.
 
-1997-03-21  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-21  NIIBE Yutaka <gniibe@fsij.org>
 
 	Cosmetic changes.
 	* wnnfnc.c (Throughout): Change Lisp function name to follow the
@@ -1710,7 +1710,7 @@
 
 	* egg-fence.el: Removed.
 
-1997-03-20  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-20  NIIBE Yutaka <gniibe@fsij.org>
 
 	Distingush continuation of egg-mode and turn off of egg-mode.
 	* its.el (its-mode-map): Bind "\C-\\" to its-exit-mode-no-egg.
@@ -1773,7 +1773,7 @@
  	its-move-nil-<--sub, its-move-nil-to-last, its-move-nil-to-first):
 	Deleted.
 
-1997-03-19  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-19  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el: Change the structure of DSYL.  Same as <state>.
 	(its-input-subsub): Follow the change of structure.
@@ -1789,7 +1789,7 @@
 
 	Introduce START, END and CURSOR.
 
-1997-03-19  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-03-19  NIIBE Yutaka <gniibe@fsij.org>
 
 	Global-map should be used, for key sequence not defined by
  	its-mode-map and/or egg-mode-map.   Don't mask other maps.
@@ -1798,7 +1798,7 @@
 	* egg.el (egg-mode-esc-map): Deleted.
 	(egg-mode-map): Include define-key of the esc-map here.
 	
-1997-03-18  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-18  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-input): Rename from its-input-input-buffer.
 	(its-state-machine): Handle END of input (key == -1).
@@ -1818,14 +1818,14 @@
 	(its-new-state, its-new-map): Split from its-new-state/map.
 	(its-make-map): Deleted.
 
-1997-03-17  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-17  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-buffer-insert-SYL-list): Use insert-and-inherit to
  	inherit properties.
 	(its-fence-overlay): Removed. Don't use overlay, as it has no
  	information in undo-list.
 
-1997-03-16  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-16  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its/hira.el ("n"): Use new feature END.
 	("ppy", "bby", "ddy", "jjy", "zzy", "ggy", "lly", "rry", "hhy",
@@ -1834,11 +1834,11 @@
 	* its.el (its-defrule): Add argument END.
 	(its-buffer-delete-SYL): Bug fix. Use length instead of string-width.
 
-1997-03-15  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-15  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-input-input-buffer): Implement the case of DSYL.
 
-1997-03-14  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-14  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-buffer-delete-SYL): Handle the case of NIL.
 
@@ -1846,7 +1846,7 @@
 	(digit-characters, symbol-characters, downcase-alphabets,
  	upcase-alphabets): Delete useless defvar-s.  
 
-1997-03-14  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-03-14  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its/hira.el ("roma-kana"): Follow change of implementation of
 	state machine.
@@ -1922,7 +1922,7 @@
 
 	* its.el (its-defrule-sub): Merged into its-defrule.
 
-1997-03-13  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-03-13  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el: (its-define-mode): Change the arguments.
 	* its/zhuyin.el ("zhuyin"): Follow the changes of its-define-mode.
@@ -1946,13 +1946,13 @@
 	* wnn6fns.c: New file.  Moved from wnnfns.c for WNN6 specific
  	functions.
 
-1997-03-12  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-12  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnnfns.c: cosmetic changes (indentation, commenting-out-style,
  	and compare to Qnil, etc).
 	Get rid of "register" qualifier.
 
-1997-03-05  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-05  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-define-mode): Change internal structure.  Completely
  	rewritten.
@@ -1990,7 +1990,7 @@
 	(its-make-non-terminal-state): Removed.  Not used.
 	(its-map-incrementalp, its-map-set-incrementalp): New functions.
 	
-1997-03-04  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-04  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-defrule-conditional, its-defrule-conditional*):
  	Removed.  Evaluating cond clause at runtime is stupid.  Rules
@@ -2031,7 +2031,7 @@
 	(its-defrule, its-defrule*): Remove MAP argument.
 	Merged into its-defrule.
 
-1997-03-04  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-03-04  NIIBE Yutaka <gniibe@fsij.org>
 
 	* its.el (its-completing-input-menu): Removed.  Not used.
 	(its-completing-input): Ditto.
@@ -2105,7 +2105,7 @@
 	(egg-fence-toggle-egg-mode): beep -> ding.
 	(global-map): bind C-\ to egg-enter-fence-mode.
 
-1997-03-02  NIIBE Yutaka  <gniibe@chroot.org>
+1997-03-02  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-henkan.el: New file.
 
@@ -2183,7 +2183,7 @@
  	egg-fence-backward-delete-char): beep -> ding.
 	wnn-egg.el (egg-henkan-select-kouho): Likewise.
 
-1997-02-27  NIIBE Yutaka  <gniibe@chroot.org>
+1997-02-27  NIIBE Yutaka <gniibe@fsij.org>
 
 	* wnn-egg.el (push-end, push-end-internal): Removed.
 
@@ -2206,7 +2206,7 @@
 	* egg-jsymbol.el: lc-jp --> (charset-id 'japanese-jisx0208)
 	lc-jp2 --> (charset-id 'japanese-jisx0212).
 
-1997-02-26  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-02-26  NIIBE Yutaka <gniibe@fsij.org>
 
 	* egg-fence.el (egg:fence-mode-map): Renamed from fence-mode-map.
 	(egg:fence-mode-esc-prefix): Renamed from egg:fence-mode-esc-map.
@@ -2306,6 +2306,6 @@
 	(henkan-region-internal): Use new API for marker insertion
  	`set-marker-insertion-type'.
 
-1997-02-13  NIIBE Yutaka  <gniibe@akebono.etl.go.jp>
+1997-02-13  NIIBE Yutaka <gniibe@fsij.org>
 
 	* menu.el (menu:select-from-menu): Rewritten.

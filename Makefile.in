@@ -305,6 +305,7 @@ doc_DATA = @doc_DATA@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+helper = @helper@
 host_alias = @host_alias@
 htmldir = @htmldir@
 includedir = @includedir@
@@ -334,7 +335,7 @@ AM_ELCFLAGS = -q -no-site-file -no-init-file \
 		--eval="(setq load-path (append (list (expand-file-name \"$(top_srcdir)\")) load-path))" \
 		--eval="(load \"docomp.el\")"
 
-SUBDIRS = egg its helper
+SUBDIRS = egg its @helper@
 noinst_LISP = \
 	egg.el \
 	egg-edep.el \

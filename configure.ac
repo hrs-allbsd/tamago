@@ -31,9 +31,22 @@ AC_ARG_ENABLE(doc,[AS_HELP_STRING([--disable-doc],
   echo "yes"; doc_DATA='${DOCS}')
 AC_SUBST(doc_DATA)
 
+dnl Check if (make-network-process) is supported or not
+AC_MSG_CHECKING(make-network-process)
+if ${EMACS} -batch -q -no-site-file -no-init-file \
+  --eval="(if (fboundp 'make-network-process)(kill-emacs 0)(kill-emacs 1))";
+  then
+  echo "yes"; helper=""
+else
+  echo "no"; helper="helper"
+fi
+AC_SUBST(helper)
+
 dnl Check if jisx0213 is supported or not
 AC_MSG_CHECKING(jisx0213)
-if ${EMACS} -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
+if ${EMACS} -batch -q -no-site-file -no-init-file \
+  --eval="(if (charsetp 'japanese-jisx0213-1)(kill-emacs 0)(kill-emacs 1))";
+  then
   echo "yes"; HAVE_JISX0213="aynu.el"
 else
   echo "no"; HAVE_JISX0213=""

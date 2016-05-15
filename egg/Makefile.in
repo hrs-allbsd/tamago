@@ -240,6 +240,7 @@ doc_DATA = @doc_DATA@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+helper = @helper@
 host_alias = @host_alias@
 htmldir = @htmldir@
 includedir = @includedir@

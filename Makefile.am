@@ -1,6 +1,6 @@
 include $(top_srcdir)/elisp.mk
 
-SUBDIRS= egg its helper
+SUBDIRS= egg its @helper@
 
 lispdir= @lispdir@/egg
 

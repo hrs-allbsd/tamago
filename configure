@@ -589,6 +589,7 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 HAVE_JISX0213
+helper
 doc_DATA
 lispdir
 EMACSLOADPATH
@@ -3602,9 +3603,22 @@ fi
 
 
 
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking make-network-process" >&5
+$as_echo_n "checking make-network-process... " >&6; }
+if ${EMACS} -batch -q -no-site-file -no-init-file \
+  --eval="(if (fboundp 'make-network-process)(kill-emacs 0)(kill-emacs 1))";
+  then
+  echo "yes"; helper=""
+else
+  echo "no"; helper="helper"
+fi
+
+
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking jisx0213" >&5
 $as_echo_n "checking jisx0213... " >&6; }
-if ${EMACS} -batch -q -no-site-file -no-init-file -l ${srcdir}/check-jisx0213.el; then
+if ${EMACS} -batch -q -no-site-file -no-init-file \
+  --eval="(if (charsetp 'japanese-jisx0213-1)(kill-emacs 0)(kill-emacs 1))";
+  then
   echo "yes"; HAVE_JISX0213="aynu.el"
 else
   echo "no"; HAVE_JISX0213=""

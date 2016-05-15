@@ -1,4 +1,18 @@
+2016-05-15  Hiroki Sato <hrs@allbsd.org>
+
+	* configure.ac: Use standard AM_PATH_LISPDIR instead of
+	--with-lispdir and --with-emacs-cmd.  Add --enable-doc for
+	documentation.
+	* Makefile.am, configure.ac: Update build infrastructure to use
+	automake properly.
+	* egg.el: Fix warning about defgroup.
+	* egg-cnv.el: Fix warning about (buffer-has-markers-at).
+	* helper/Makefile.am: Compile helper binary only when necessary.
+	* check-jisx0213.el: Removed in favor of checking it directly in
+	the configure script.
+
 2016-05-14  Hiroki Sato <hrs@allbsd.org>
+
 	* Makefile.in: Add EMACS_CMD, datadir, datarootdir.  Use
 	${INSTALL_DATA} for multiple files at once.  Install gzip'd .el
 	files.

@@ -1,8 +1,0 @@
-PROG=	egg-helper
-SRCS=	egg-helper.c
-
-CFLAGS+= @HAVE_GETADDRINFO_UNIX@
-
-MAN=
-
-.include <bsd.prog.mk>

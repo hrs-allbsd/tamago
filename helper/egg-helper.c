@@ -13,6 +13,9 @@
  * LICENCE: GPL
  */
 
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
 /*
  * communicate unix domain IM server
  * stdin -> IM server -> stdout

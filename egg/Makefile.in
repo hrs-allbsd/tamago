@@ -499,7 +499,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-lisp mostlyclean-am
+clean-am: clean-generic clean-lisp clean-local mostlyclean-am
 
 distclean: distclean-am
 	-rm -f Makefile
@@ -566,7 +566,7 @@ uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-lisp cscopelist-am ctags ctags-am distclean \
+	clean-lisp clean-local cscopelist-am ctags ctags-am distclean \
 	distclean-generic distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
 	install-data-am install-dist_lispLISP install-docDATA \
@@ -582,6 +582,9 @@ uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 .PRECIOUS: Makefile
 
 include ${top_srcdir}/elisp.mk
+
+clean-local:
+	rm -f .nosearch wnn.el canna.el
 
 .nosearch:
 	touch $@

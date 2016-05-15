@@ -14,6 +14,9 @@ noinst_LISP= \
 
 dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc} .nosearch
 
+clean-local:
+	rm -f .nosearch wnn.el canna.el
+
 .nosearch:
 	touch $@
 wnn.el: wnn.el.in

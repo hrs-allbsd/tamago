@@ -15,6 +15,6 @@ noinst_LISP= \
 dist_lisp_LISP=	${noinst_LISP:.el=.el.gz} ${noinst_LISP:.el=.elc}
 
 wnn.el: wnn.el.in
-	sed -e 's,[@]libexecdir@,@libexecdir@,' < $> > $@
+	sed -e 's,[@]libexecdir@,@libexecdir@,' < wnn.el.in > $@
 canna.el: canna.el.in
-	sed -e 's,[@]libexecdir@,@libexecdir@,' < $> > $@
+	sed -e 's,[@]libexecdir@,@libexecdir@,' < canna.el.in > $@

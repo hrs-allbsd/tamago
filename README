@@ -1,0 +1,17 @@
+Tamago 4.0.6.0.20041122.19.14
+
+Hiroki Sato <hrs@allbsd.org>
+
+This package is a variant of Tamago, CJK input method (frontend) for
+Emacsen.  Tamago had been developed the respective authors and
+the development has been stalled since around 2004.  However, changes in
+the latest Emacen often prevented it from working.  To maintain it in a
+good shape, this package imports fixes and improvements.
+
+This package is based on 4.0.6, and patches from Debian package,
+egg_4.0.6+0.20041122cvs-19.diff are applied.  Further changes are
+recorded in ChangeLog.
+
+While most of the fixes and improvements should be portable,
+the author (of this document) has tested them primarily on
+FreeBSD/amd64.  Please report if there is something wrong.

@@ -584,7 +584,7 @@ uninstall-am: uninstall-dist_lispLISP uninstall-docDATA
 include ${top_srcdir}/elisp.mk
 
 clean-local:
-	rm -f .nosearch wnn.el canna.el
+	rm -f wnn.el canna.el
 
 .nosearch:
 	touch $@

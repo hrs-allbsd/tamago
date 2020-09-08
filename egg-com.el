@@ -98,8 +98,9 @@
       (repeat)))))
 )
 
-(make-coding-system 'fixed-euc-jp 4 ?W "Coding System for fixed EUC Japanese"
-		    (cons ccl-decode-fixed-euc-jp ccl-encode-fixed-euc-jp))
+(define-coding-system 'fixed-euc-jp "Coding System for fixed EUC Japanese"
+  :mnemonic ?W :coding-type 'ccl :ccl-decoder ccl-decode-fixed-euc-jp
+  :ccl-encoder ccl-encode-fixed-euc-jp)
 
 ;; Korean
 
@@ -132,8 +133,9 @@
       (repeat)))))
 )
 
-(make-coding-system 'fixed-euc-kr 4 ?W "Coding System for fixed EUC Korean"
-		    (cons ccl-decode-fixed-euc-kr ccl-encode-fixed-euc-kr))
+(define-coding-system 'fixed-euc-kr "Coding System for fixed EUC Korean"
+  :mnemonic ?W :coding-type 'ccl :ccl-decoder ccl-decode-fixed-euc-kr
+  :ccl-encoder ccl-encode-fixed-euc-kr)
 
 ;; Chinese
 
@@ -596,29 +598,33 @@ Return the length of resulting text."
 (defun post-read-decode-euc-zy-tw (len)
   (post-read-decode-fixed-euc-china len 'tw t))
 
-(make-coding-system 'fixed-euc-py-cn 0 ?W
-		    "Coding System for fixed EUC Chinese-gb2312")
+(define-coding-system
+  'fixed-euc-py-cn "Coding System for fixed EUC Chinese-gb2312"
+  :mnemonic ?W :coding-type 'emacs-mule)
 (coding-system-put 'fixed-euc-py-cn
 		   'pre-write-conversion 'pre-write-encode-euc-cn)
 (coding-system-put 'fixed-euc-py-cn
 		   'post-read-conversion 'post-read-decode-euc-py-cn)
 
-(make-coding-system 'fixed-euc-zy-cn 0 ?W
-		    "Coding System for fixed EUC Chinese-gb2312")
+(define-coding-system
+  'fixed-euc-zy-cn "Coding System for fixed EUC Chinese-gb2312"
+  :mnemonic ?W :coding-type 'emacs-mule)
 (coding-system-put 'fixed-euc-zy-cn
 		   'pre-write-conversion 'pre-write-encode-euc-cn)
 (coding-system-put 'fixed-euc-zy-cn
 		   'post-read-conversion 'post-read-decode-euc-zy-cn)
 
-(make-coding-system 'fixed-euc-py-tw 0 ?W
-		    "Coding System for fixed EUC Chinese-cns11643")
+(define-coding-system
+  'fixed-euc-py-tw "Coding System for fixed EUC Chinese-cns11643"
+  :mnemonic ?W :coding-type 'emacs-mule)
 (coding-system-put 'fixed-euc-py-tw
 		   'pre-write-conversion 'pre-write-encode-euc-tw)
 (coding-system-put 'fixed-euc-py-tw
 		   'post-read-conversion 'post-read-decode-euc-py-tw)
 
-(make-coding-system 'fixed-euc-zy-tw 0 ?W
-		    "Coding System for fixed EUC Chinese-cns11643")
+(define-coding-system
+  'fixed-euc-zy-tw "Coding System for fixed EUC Chinese-cns11643"
+  :mnemonic ?W :coding-type 'emacs-mule)
 (coding-system-put 'fixed-euc-zy-tw
 		   'pre-write-conversion 'pre-write-encode-euc-tw)
 (coding-system-put 'fixed-euc-zy-tw
@@ -644,8 +650,9 @@ Return the length of resulting text."
 	   (r0 = 0)))
       (write-read-repeat r0))))))
 
-(make-coding-system 'egg-binary 4 ?W "Coding System for binary data"
-		    (cons ccl-decode-egg-binary ccl-encode-egg-binary))
+(define-coding-system 'egg-binary "Coding System for binary data"
+  :mnemonic ?W :coding-type 'ccl :ccl-decoder ccl-decode-egg-binary
+  :ccl-encoder ccl-encode-egg-binary)
 
 
 (defun comm-format-u32c (uint32c)

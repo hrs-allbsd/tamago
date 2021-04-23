@@ -3,7 +3,7 @@
 
 ;; Copyright (C) 1999, 2000 Free Software Foundation, Inc
 
-;; Author: NIIBE Yutaka <gniibe@chroot.org>
+;; Author: NIIBE Yutaka <gniibe@fsij.org>
 ;;         KATAYAMA Yoshio <kate@pfu.co.jp> ; Korean, Chinese support.
 
 ;; Maintainer: TOMURA Satoru <tomura@etl.go.jp>

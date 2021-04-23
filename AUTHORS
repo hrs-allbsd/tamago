@@ -12,13 +12,13 @@ NIIBE Yutaka <gniibe@fsij.org>
 	Wrote egg.el, menudiag.el, egg-cnv.el, egg-com.el,
 	and egg-mlh.el.
 	Wrote backend conversion engine interface:
-	    ANTHY: egg/anthy.el, egg/anthyipc.el, 
+	    ANTHY: egg/anthy.el, egg/anthyipc.el,
 	    SJ3: egg/sj3.el, egg/sj3rpc.el,
 	    WNN: egg/wnn.el, and egg/wnnrpc.el.
 
 KATAYAMA Yoshio <kate@pfu.co.jp>
 	Design ITS programming.
-	Wrote its/hangul.el, its/erpin.el, its/pinyin.el, 
+	Wrote its/hangul.el, its/erpin.el, its/pinyin.el,
 	its/thai.el, and its/zhuyin.el.
 
 Satoru Tomura <tomura@etl.go.jp>
@@ -28,5 +28,3 @@ Satoru Tomura <tomura@etl.go.jp>
 
 Hisashi Miyashita <himi@bird.scphys.kyoto-u.ac.jp>
 	Wrote CCL routines in tamago-com.el.
-
-

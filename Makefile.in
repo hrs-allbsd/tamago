@@ -198,7 +198,7 @@ CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/elisp.mk AUTHORS COPYING ChangeLog INSTALL NEWS \
-	README TODO compile depcomp install-sh missing
+	README TODO compile install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -305,6 +305,7 @@ doc_DATA = @doc_DATA@
 docdir = @docdir@
 dvidir = @dvidir@
 exec_prefix = @exec_prefix@
+helper = @helper@
 host_alias = @host_alias@
 htmldir = @htmldir@
 includedir = @includedir@
@@ -334,7 +335,7 @@ AM_ELCFLAGS = -q -no-site-file -no-init-file \
 		--eval="(setq load-path (append (list (expand-file-name \"$(top_srcdir)\")) load-path))" \
 		--eval="(load \"docomp.el\")"
 
-SUBDIRS = egg its helper
+SUBDIRS = egg its @helper@
 noinst_LISP = \
 	egg.el \
 	egg-edep.el \

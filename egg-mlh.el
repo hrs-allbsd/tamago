@@ -3,10 +3,10 @@
 
 ;; Copyright (C) 1999, 2000 Free Software Foundation, Inc
 
-;; Author: NIIBE Yutaka <gniibe@m17n.org>
+;; Author: NIIBE Yutaka <gniibe@fsij.org>
 ;;         KATAYAMA Yoshio <kate@pfu.co.jp>      ; Multilingual Enhancement
 
-;; Maintainer: NIIBE Yutaka <gniibe@m17n.org>
+;; Maintainer: NIIBE Yutaka <gniibe@fsij.org>
 
 ;; Keywords: mule, multilingual, input method
 

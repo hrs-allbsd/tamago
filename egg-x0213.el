@@ -104,8 +104,10 @@
               (repeat)))
          (repeat)))))
 
-   (make-coding-system
-    'fixed-euc-jisx0213 4 ?W "Coding System for fixed EUC Japanese"
-    (cons ccl-decode-fixed-euc-jisx0213 ccl-encode-fixed-euc-jisx0213))))
+   (define-coding-system
+     'fixed-euc-jisx0213 "Coding System for fixed EUC Japanese"
+     :mnemonic ?W :coding-type 'ccl
+     :ccl-decoder ccl-decode-fixed-euc-jisx0213
+     :ccl-encoder ccl-encode-fixed-euc-jisx0213)))
 
 (provide 'egg-x0213)

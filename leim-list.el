@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 1999, 2000, 2002 Free Software Foundation, Inc
 
-;; Author: NIIBE Yutaka <gniibe@m17n.org>
+;; Author: NIIBE Yutaka <gniibe@fsij.org>
 ;;         KATAYAMA Yoshio <kate@pfu.co.jp>
 ;;         TOMURA Satoru <tomura@etl.go.jp>
 

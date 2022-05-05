@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([tamago],[4.0.6.0.20041122.19.14],[https://github.com/hrs-allbsd/tamago/issues],[tamago])
+AC_INIT([tamago],[4.0.6.0.20041122.19.15],[https://github.com/hrs-allbsd/tamago/issues],[tamago])
 AM_INIT_AUTOMAKE
 
 dnl Checks for programs.
